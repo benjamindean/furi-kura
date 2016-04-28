@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+    <requires lib="gtk+" version="3.12"/>
+    <!-- interface-naming-policy project-wide -->
+    <object class="GtkMenu" id="reppid_menu">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <child>
+            <object class="GtkMenuItem" id="reppit_inbox">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="use_action_appearance">False</property>
+                <property name="label" translatable="yes">Inbox: 0</property>
+                <property name="use_underline">True</property>
+                <signal name="activate" handler="inbox_handler" swapped="no"/>
+            </object>
+        </child>
+        <child>
+            <object class="GtkMenuItem" id="new_events">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="use_action_appearance">False</property>
+                <property name="label" translatable="yes">New events</property>
+                <property name="use_underline">True</property>
+            </object>
+        </child>
+        <child>
+            <object class="GtkSeparatorMenuItem">
+                <property name="visible">True</property>
+            </object>
+        </child>
+        <child>
+            <object class="GtkMenuItem" id="exit_indicator">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="use_action_appearance">False</property>
+                <property name="label" translatable="yes">Quit</property>
+                <property name="use_underline">True</property>
+                <signal name="activate" handler="quit" swapped="no"/>
+            </object>
+        </child>
+    </object>
+</interface>
