@@ -65,7 +65,7 @@ class FuriKuraIndicator:
         self.local_data = reddit_data
 
     def run_background(self, interval):
-        timeout = 5000  # interval * 60 * 1000
+        timeout = interval * 60 * 1000
         self.services['timeout'] = GObject.timeout_add(timeout, self.update_reddit_data)
 
     def set_refresh_interval(self, widget):
