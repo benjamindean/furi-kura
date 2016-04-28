@@ -9,8 +9,7 @@ from furikura import config
 config_storage = config.Config()
 app = Flask(__name__)
 
-print "Init login"
-
+print("Init login")
 
 @app.route('/')
 def homepage():

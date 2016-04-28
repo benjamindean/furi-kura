@@ -23,6 +23,7 @@ class FuriKuraIndicator:
     )
 
     def __init__(self, config_storage):
+        print("Init Indicator")
 
         # Throwing config class here
         self.config_storage = config_storage
@@ -55,7 +56,7 @@ class FuriKuraIndicator:
     def update_reddit_data(self):
         self.REDDIT_DATA = self.request.fetch_user_info()
         self.update_appindicator(self.REDDIT_DATA)
-        print("upd")
+        print("Updated")
         return True
 
     def update_appindicator(self, reddit_data):

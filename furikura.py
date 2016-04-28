@@ -4,8 +4,7 @@ from furikura import indicator
 
 class FuriKura():
     def __init__(self):
-        print "Init MAIN"
-
+        print("Init main")
         config_storage = config.Config()
         ind_inst = indicator.FuriKuraIndicator(config_storage)
 

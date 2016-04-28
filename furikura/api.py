@@ -5,7 +5,7 @@ import requests.auth
 
 class API:
     def __init__(self, config_storage):
-        print "Init API"
+        print("Init API")
         self.config_storage = config_storage
         self.config = self.config_storage.config
 
@@ -31,7 +31,7 @@ class API:
         self.config_storage.set_key("token_expires", self.token_expires)
         self.config_storage.set_key("access_token", access_token)
         self.set_token(access_token)
-        print "Token refreshed with %s, until %s" % (response.json()['access_token'], time.time() + 3600)
+        print("Token refreshed with %s, until %s" % (response.json()['access_token'], time.time() + 3600))
 
     def check_token(self):
         return time.time() >= self.token_expires
