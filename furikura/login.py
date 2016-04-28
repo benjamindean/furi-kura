@@ -4,9 +4,9 @@ import requests
 import requests.auth
 from flask import Flask, abort, request
 
-from furikura import config
+from furikura.config import Config
 
-config_storage = config.Config()
+config_storage = Config()
 app = Flask(__name__)
 
 print("Init login")

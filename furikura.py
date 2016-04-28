@@ -1,18 +1,16 @@
-from furikura import config
-from furikura import indicator
+from furikura.config import Config
+from furikura.indicator import FuriKuraIndicator
 
 
-class FuriKura:
+class FuriKura(object):
     def __init__(self):
         print("Init main")
-        config_storage = config.Config()
-        ind_inst = indicator.FuriKuraIndicator(config_storage)
+        config_storage = Config()
+        ind_inst = FuriKuraIndicator(config_storage)
 
         if not config_storage.get_key("access_token"):
-
-            from furikura import login
             import thread
-
+            from furikura import login
             thread.start_new_thread(login.run, ("FuriKura-Login-Server", 1,))
             ind_inst.build_login_menu()
         else:

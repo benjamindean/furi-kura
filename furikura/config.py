@@ -2,7 +2,7 @@ import json
 import os.path
 
 
-class Config:
+class Config(object):
     CONFIG_FILE = os.path.expanduser("~/.furikura")
     DUMP_FILE = os.path.expanduser("~/.furikura_dump")
 

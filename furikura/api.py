@@ -1,9 +1,8 @@
 import time
-
 import requests.auth
 
 
-class API:
+class API(object):
     def __init__(self, config_storage):
         print("Init API")
         self.config_storage = config_storage

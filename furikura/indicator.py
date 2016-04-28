@@ -2,7 +2,7 @@ import gi
 import os.path
 import webbrowser
 
-from furikura import api
+from furikura.api import API
 
 gi.require_version('Gtk', '3.0')
 gi.require_version('AppIndicator3', '0.1')
@@ -14,7 +14,7 @@ from gi.repository import Notify
 from gi.repository import GObject
 
 
-class FuriKuraIndicator:
+class FuriKuraIndicator(object):
     APPINDICATOR_ID = 'furikura_indicator'
     INDICATOR = AppIndicator3.Indicator.new(
         APPINDICATOR_ID,
@@ -29,10 +29,13 @@ class FuriKuraIndicator:
         self.config_storage = config_storage
 
         # Instantiating API handler
-        self.request = api.API(self.config_storage)
+        self.request = API(self.config_storage)
 
         # Getting initial config
         self.config = self.config_storage.config
+
+        # Init GTK Builder
+        self.builder = Gtk.Builder()
 
         # Dummy local data
         self.local_data = {
@@ -124,7 +127,6 @@ class FuriKuraIndicator:
             "quit": self.quit
         }
 
-        self.builder = Gtk.Builder()
         self.builder.add_from_file(os.path.join(os.path.dirname(__file__), 'ui/menu.xml'))
         self.builder.connect_signals(signals)
 
