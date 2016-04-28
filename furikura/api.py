@@ -41,7 +41,8 @@ class API:
         self.headers = self.config_storage.set_headers(token)
 
     def fetch_user_info(self):
-        if self.check_token(): self.get_new_token()
+        if self.check_token():
+            self.get_new_token()
         response = requests.get("https://oauth.reddit.com/api/v1/me", headers=self.headers)
         return response.json()
 

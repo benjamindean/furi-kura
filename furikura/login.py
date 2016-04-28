@@ -11,6 +11,7 @@ app = Flask(__name__)
 
 print("Init login")
 
+
 @app.route('/')
 def homepage():
     text = '<a href="%s">Authenticate with reddit</a>'

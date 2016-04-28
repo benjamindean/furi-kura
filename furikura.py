@@ -2,7 +2,7 @@ from furikura import config
 from furikura import indicator
 
 
-class FuriKura():
+class FuriKura:
     def __init__(self):
         print("Init main")
         config_storage = config.Config()

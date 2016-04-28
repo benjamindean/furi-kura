@@ -15,36 +15,6 @@
                 <signal name="activate" handler="inbox_handler" swapped="no"/>
             </object>
         </child>
-
-        <!--<child>-->
-        <!--<object class="GtkMenuItem">-->
-        <!--<property name="visible">True</property>-->
-        <!--<child>-->
-        <!--<object class="GtkHBox" id="box">-->
-        <!--<property name="visible">True</property>-->
-        <!--<property name="can_focus">False</property>-->
-        <!--<child>-->
-        <!--<object class="GtkLabel">-->
-        <!--<property name="visible">True</property>-->
-        <!--<property name="label" translatable="yes">label</property>-->
-        <!--<property name="use_underline">True</property>-->
-        <!--<property name="halign">start</property>-->
-        <!--</object>-->
-        <!--</child>-->
-        <!--<child>-->
-        <!--<object class="GtkLabel">-->
-        <!--<property name="visible">True</property>-->
-        <!--<property name="label" translatable="yes">Inbox:</property>-->
-        <!--<property name="use_underline">True</property>-->
-        <!--<property name="halign">end</property>-->
-        <!--</object>-->
-        <!--</child>-->
-        <!--</object>-->
-        <!--</child>-->
-        <!--</object>-->
-        <!--</child>-->
-
-
         <child>
             <object class="GtkMenuItem" id="furikura_link_karma">
                 <property name="visible">True</property>

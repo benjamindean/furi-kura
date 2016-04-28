@@ -54,8 +54,7 @@ class FuriKuraIndicator:
         self.INDICATOR.set_attention_icon("indicator-messages-new")
 
     def update_reddit_data(self):
-        self.REDDIT_DATA = self.request.fetch_user_info()
-        self.update_appindicator(self.REDDIT_DATA)
+        self.update_appindicator(self.request.fetch_user_info())
         print("Updated")
         return True
 
@@ -66,7 +65,7 @@ class FuriKuraIndicator:
         self.local_data = reddit_data
 
     def run_background(self, interval):
-        timeout = interval * 60 * 1000
+        timeout = 5000  # interval * 60 * 1000
         self.services['timeout'] = GObject.timeout_add(timeout, self.update_reddit_data)
 
     def set_refresh_interval(self, widget):
@@ -89,8 +88,8 @@ class FuriKuraIndicator:
         position = str(widget.get_name())
 
         karma = "{link} | {post}".format(
-            link=self.REDDIT_DATA['link_karma'],
-            post=self.REDDIT_DATA['comment_karma']
+            link=self.local_data['link_karma'],
+            post=self.local_data['comment_karma']
         )
 
         karma_widgets = {
@@ -116,7 +115,7 @@ class FuriKuraIndicator:
 
     def build_menu(self):
 
-        self.REDDIT_DATA = self.request.fetch_user_info()
+        reddit_data = self.request.fetch_user_info()
 
         signals = {
             "inbox_handler": self.open_inbox,
@@ -133,7 +132,7 @@ class FuriKuraIndicator:
         self.INDICATOR.set_menu(menu)
         menu.show_all()
 
-        self.update_appindicator(self.REDDIT_DATA)
+        self.update_appindicator(reddit_data)
         self.run_background(self.config.get('refresh_interval'))
 
         self.set_radio("refresh_interval")
@@ -159,17 +158,17 @@ class FuriKuraIndicator:
 
         self.INDICATOR.set_menu(login_menu)
 
-    def set_radio(self, id):
-        view = self.builder.get_object("furikura_%s" % id).get_children()
+    def set_radio(self, item_id):
+        view = self.builder.get_object("furikura_%s" % item_id).get_children()
         for child in view:
-            if str(child.get_name()) == str(self.config[id]):
+            if str(child.get_name()) == str(self.config[item_id]):
                 child.set_active("True")
 
     def mail_notify(self, inbox_count):
         if not self.services['notification']:
             self.services['notification'] = Notify.init(self.APPINDICATOR_ID)
 
-        if (inbox_count > self.local_data['inbox_count']):
+        if inbox_count > self.local_data['inbox_count']:
             self.INDICATOR.set_status(AppIndicator3.IndicatorStatus.ATTENTION)
             message_data = self.request.get_last_message()
             Notify.Notification.new(
