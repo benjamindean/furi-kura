@@ -8,7 +8,7 @@ class FuriKura(object):
         config_storage = Config()
         ind_inst = FuriKuraIndicator(config_storage)
 
-        if not config_storage.get_key("access_token"):
+        if not config_storage.get_value("access_token"):
             import thread
             from furikura import login
             thread.start_new_thread(login.run, ("FuriKura-Login-Server", 1,))

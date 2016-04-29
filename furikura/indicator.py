@@ -18,7 +18,7 @@ class FuriKuraIndicator(object):
     APPINDICATOR_ID = 'furikura_indicator'
     INDICATOR = AppIndicator3.Indicator.new(
         APPINDICATOR_ID,
-        os.path.abspath("icons/furi-active.png"),
+        os.path.abspath("furikura/icons/furi-active.png"),
         AppIndicator3.IndicatorCategory.APPLICATION_STATUS
     )
 
@@ -131,7 +131,6 @@ class FuriKuraIndicator(object):
         self.builder.connect_signals(signals)
 
         menu = self.builder.get_object("furikura_menu")
-        self.INDICATOR.set_menu(menu)
         menu.show_all()
 
         self.update_appindicator(reddit_data)
@@ -139,6 +138,8 @@ class FuriKuraIndicator(object):
 
         self.set_radio("refresh_interval")
         self.set_radio("karma_view")
+
+        self.INDICATOR.set_menu(menu)
 
     def build_login_menu(self):
 
