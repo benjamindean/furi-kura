@@ -1,5 +1,5 @@
-from furikura.config import Config
-from furikura.indicator import FuriKuraIndicator
+from .config import Config
+from .indicator import FuriKuraIndicator
 
 
 class FuriKura(object):
@@ -10,14 +10,10 @@ class FuriKura(object):
 
         if not config_storage.get_value("access_token"):
             import thread
-            from furikura import login
+            from . import login
             thread.start_new_thread(login.run, ("FuriKura-Login-Server", 1,))
             ind_inst.build_login_menu()
         else:
             ind_inst.build_menu()
 
         ind_inst.main_loop()
-
-
-if __name__ == '__main__':
-    FuriKura()

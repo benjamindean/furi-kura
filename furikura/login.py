@@ -4,7 +4,7 @@ import requests
 import requests.auth
 from flask import Flask, abort, request
 
-from furikura.config import Config
+from .config import Config
 
 config_storage = Config()
 app = Flask(__name__)
@@ -33,8 +33,8 @@ def reddit_callback():
     config_storage.set_key("refresh_token", tokens['refresh_token'])
     config_storage.set_key("token_expires", time.time() + 3600)
 
-    from furikura import indicator
-    ind = indicator.FuriKuraIndicator(config_storage)
+    from .indicator import FuriKuraIndicator
+    ind = FuriKuraIndicator(config_storage)
     ind.build_menu()
     shutdown_server()
 

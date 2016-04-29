@@ -1,8 +1,8 @@
 import gi
-import os.path
 import webbrowser
 
-from furikura.api import API
+from . import utils
+from .api import API
 
 gi.require_version('Gtk', '3.0')
 gi.require_version('AppIndicator3', '0.1')
@@ -16,9 +16,10 @@ from gi.repository import GObject
 
 class FuriKuraIndicator(object):
     APPINDICATOR_ID = 'furikura_indicator'
+
     INDICATOR = AppIndicator3.Indicator.new(
         APPINDICATOR_ID,
-        os.path.abspath("furikura/icons/furi-active.png"),
+        utils.get_file("furikura/icons/furi-active.png"),
         AppIndicator3.IndicatorCategory.APPLICATION_STATUS
     )
 
@@ -127,7 +128,7 @@ class FuriKuraIndicator(object):
             "quit": self.quit
         }
 
-        self.builder.add_from_file(os.path.join(os.path.dirname(__file__), 'ui/menu.xml'))
+        self.builder.add_from_file(utils.get_file('furikura/ui/menu.xml'))
         self.builder.connect_signals(signals)
 
         menu = self.builder.get_object("furikura_menu")
