@@ -7,6 +7,7 @@ try:
     import furikura
 except ImportError:
     sys.path.append(abspath(join(dirname(__file__), '..')))
+    import furikura
 
 from furikura.furikura import FuriKura
 

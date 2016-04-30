@@ -16,10 +16,9 @@ from gi.repository import GObject
 
 class FuriKuraIndicator(object):
     APPINDICATOR_ID = 'furikura_indicator'
-
     INDICATOR = AppIndicator3.Indicator.new(
         APPINDICATOR_ID,
-        utils.get_file("furikura/icons/furi-active.png"),
+        utils.get_file("../furikura/icons/furi-active.png"),
         AppIndicator3.IndicatorCategory.APPLICATION_STATUS
     )
 
@@ -96,10 +95,7 @@ class FuriKuraIndicator(object):
             post=self.local_data['comment_karma']
         )
 
-        karma_widgets = {
-            'furikura_link_karma',
-            'furikura_comment_karma'
-        }
+        karma_widgets = set(['furikura_link_karma', 'furikura_comment_karma'])
 
         if position == 'icon':
             for karma_entry in karma_widgets:
@@ -128,7 +124,7 @@ class FuriKuraIndicator(object):
             "quit": self.quit
         }
 
-        self.builder.add_from_file(utils.get_file('furikura/ui/menu.xml'))
+        self.builder.add_from_file(utils.get_file('../furikura/ui/menu.xml'))
         self.builder.connect_signals(signals)
 
         menu = self.builder.get_object("furikura_menu")
