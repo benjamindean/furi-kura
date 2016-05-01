@@ -15,6 +15,7 @@ from gi.repository import GObject
 
 
 class FuriKuraIndicator(object):
+    # Init appindicator
     APPINDICATOR_ID = 'furikura_indicator'
     INDICATOR = AppIndicator3.Indicator.new(
         APPINDICATOR_ID,
@@ -63,7 +64,8 @@ class FuriKuraIndicator(object):
 
     def update_appindicator(self, reddit_data):
         self.set_inbox(reddit_data['inbox_count'])
-        self.mail_notify(reddit_data['inbox_count'])
+        if reddit_data['inbox_count'] > self.local_data['inbox_count']:
+            self.mail_notify(reddit_data['inbox_count'])
         self.set_karma(reddit_data['link_karma'], reddit_data['comment_karma'])
         self.local_data = reddit_data
 
@@ -168,13 +170,12 @@ class FuriKuraIndicator(object):
         if not self.services['notification']:
             self.services['notification'] = Notify.init(self.APPINDICATOR_ID)
 
-        if inbox_count > self.local_data['inbox_count']:
-            self.INDICATOR.set_status(AppIndicator3.IndicatorStatus.ATTENTION)
-            message_data = self.request.get_last_message()
-            Notify.Notification.new(
-                "Reddit mail from <b>{author}</b>".format(author=message_data['author']),
-                message_data['body']
-            ).show()
+        self.INDICATOR.set_status(AppIndicator3.IndicatorStatus.ATTENTION)
+        message_data = self.request.get_last_message()
+        Notify.Notification.new(
+            "reddit mail from <b>{author}</b>".format(author=message_data['author']),
+            message_data['body']
+        ).show()
 
     def main_loop(self):
         Gtk.main()
