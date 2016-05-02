@@ -6,6 +6,7 @@ setup(
     packages=['furikura'],
     data_files=[
         ("furikura/icons/", ['furikura/icons/furi-active.png']),
+        ("furikura/icons/", ['furikura/icons/furi-attention.png']),
         ("furikura/ui/", ['furikura/ui/menu.xml'])
     ],
     install_requires=[
