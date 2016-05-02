@@ -54,10 +54,11 @@ class Config(object):
         """
         Create or update config key.
         """
-        print("Set key: ", key)
-        self.config[key] = value
-        with open(self.CONFIG_FILE, 'w') as config_file:
-            json.dump(self.config, config_file)
+        if self.config.get(key) != value:
+            print("Set key: ", key)
+            self.config[key] = value
+            with open(self.CONFIG_FILE, 'w') as config_file:
+                json.dump(self.config, config_file)
 
     def get_value(self, key):
         """

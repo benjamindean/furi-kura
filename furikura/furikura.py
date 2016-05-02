@@ -4,16 +4,22 @@ from .indicator import FuriKuraIndicator
 
 class FuriKura(object):
     def __init__(self):
-        print("Init main")
-        config_storage = Config()
-        ind_inst = FuriKuraIndicator(config_storage)
+        self.config_storage = Config()
+        self.ind_inst = FuriKuraIndicator(self.config_storage)
 
-        if not config_storage.get_value("access_token"):
-            import thread
-            from . import login
-            thread.start_new_thread(login.run, ("FuriKura-Login-Server", 1,))
-            ind_inst.build_login_menu()
+        if not self.config_storage.get_value("access_token"):
+            self.handle_login()
         else:
-            ind_inst.build_menu()
+            self.ind_inst.build_menu()
 
-        ind_inst.main_loop()
+        self.ind_inst.main_loop()
+
+    def handle_login(self):
+        try:
+            import thread
+        except ImportError:
+            import _thread as thread
+
+        from . import login
+        thread.start_new_thread(login.run, ("FuriKura-Login-Server", 1,))
+        self.ind_inst.build_login_menu()
