@@ -82,43 +82,38 @@ class FuriKuraIndicator(object):
 
     def open_inbox(self, widget):
         self.INDICATOR.set_status(AppIndicator3.IndicatorStatus.ACTIVE)
+        self.set_inbox(0)
         webbrowser.open("https://www.reddit.com/message/unread/", new=1, autoraise=True)
-        widget.set_label("Inbox: 0")
 
     def set_karma(self, link_karma, post_karma):
-        self.builder.get_object('furikura_link_karma').set_label("Link Karma: %s" % link_karma)
-        self.builder.get_object('furikura_comment_karma').set_label("Comment Karma: %s" % post_karma)
+        self.builder.get_object('link_karma').set_label("Link Karma: %s" % link_karma)
+        self.builder.get_object('comment_karma').set_label("Comment Karma: %s" % post_karma)
 
     def toggle_karma_view(self, widget):
         position = str(widget.get_name())
-
-        karma = "{link} | {post}".format(
-            link=self.local_data['link_karma'],
-            post=self.local_data['comment_karma']
-        )
-
-        karma_widgets = set(['furikura_link_karma', 'furikura_comment_karma'])
+        karma_widgets = ('link_karma', 'comment_karma')
 
         if position == 'icon':
+            karma = "{link} | {post}".format(
+                link=self.local_data['link_karma'],
+                post=self.local_data['comment_karma']
+            )
             for karma_entry in karma_widgets:
                 self.builder.get_object(karma_entry).hide()
-            self.INDICATOR.set_label(karma, 'furikura_karma_label')
+            self.INDICATOR.set_label(karma, 'karma_label')
         else:
             for karma_entry in karma_widgets:
                 self.builder.get_object(karma_entry).show()
-            self.INDICATOR.set_label('', 'furikura_karma_label')
+            self.INDICATOR.set_label('', 'karma_label')
 
         if position != self.config['karma_view']:
             self.config_storage.set_key('karma_view', position)
 
     def set_inbox(self, count):
-        widget = self.builder.get_object("furikura_inbox")
-        widget.set_label("Inbox: %s" % count)
+        self.builder.get_object("inbox").set_label("Inbox: %s" % count)
 
     def build_menu(self):
-
         reddit_data = self.request.fetch_user_info()
-
         signals = {
             "inbox_handler": self.open_inbox,
             "karma_handler": self.toggle_karma_view,
@@ -161,16 +156,17 @@ class FuriKuraIndicator(object):
         self.INDICATOR.set_menu(login_menu)
 
     def set_radio(self, item_id):
-        view = self.builder.get_object("furikura_%s" % item_id).get_children()
+        view = self.builder.get_object(item_id).get_children()
         for child in view:
             if str(child.get_name()) == str(self.config[item_id]):
                 child.set_active("True")
 
     def mail_notify(self, inbox_count):
+        self.INDICATOR.set_status(AppIndicator3.IndicatorStatus.ATTENTION)
+
         if not self.services['notification']:
             self.services['notification'] = Notify.init(self.APPINDICATOR_ID)
 
-        self.INDICATOR.set_status(AppIndicator3.IndicatorStatus.ATTENTION)
         message_data = self.request.get_last_message()
         Notify.Notification.new(
             "reddit mail from <b>{author}</b>".format(author=message_data['author']),
