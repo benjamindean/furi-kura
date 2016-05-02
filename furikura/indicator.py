@@ -55,7 +55,7 @@ class FuriKuraIndicator(object):
 
     def init_appindicator(self):
         self.INDICATOR.set_status(AppIndicator3.IndicatorStatus.ACTIVE)
-        self.INDICATOR.set_attention_icon("indicator-messages-new")
+        self.INDICATOR.set_attention_icon(utils.get_file("../furikura/icons/furi-attention.png"))
 
     def update_reddit_data(self):
         self.update_appindicator(self.request.fetch_user_info())
