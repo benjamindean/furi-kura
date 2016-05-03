@@ -3,7 +3,7 @@ all: clean run
 clean:
 	find furikura -type f -name *.pyc | xargs rm -rf
 	find furikura -type d -name __pycache__ | xargs rm -rf
-	rm -rf build/
+	sudo rm -rf build/
 
 run:
 	bin/furikura
@@ -13,3 +13,4 @@ install:
 
 uninstall:
 	cat uninstall.txt | sudo xargs rm -rf
+	sudo rm uninstall.txt

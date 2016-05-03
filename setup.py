@@ -5,6 +5,7 @@ setup(
     version='0.0.1',
     packages=['furikura'],
     data_files=[
+        ('/usr/share/applications', ['furikura.desktop']),
         ("furikura/icons/", ['furikura/icons/furi-active.png']),
         ("furikura/icons/", ['furikura/icons/furi-attention.png']),
         ("furikura/ui/", ['furikura/ui/menu.xml'])
