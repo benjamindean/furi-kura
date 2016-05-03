@@ -1,3 +1,4 @@
+import signal
 from .config import Config
 from .indicator import FuriKuraIndicator
 
@@ -12,6 +13,7 @@ class FuriKura(object):
         else:
             self.ind_inst.build_menu()
 
+        signal.signal(signal.SIGINT, signal.SIG_DFL)
         self.ind_inst.main_loop()
 
     def handle_login(self):
