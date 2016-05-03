@@ -19,7 +19,7 @@ class FuriKuraIndicator(object):
     APPINDICATOR_ID = 'furikura_indicator'
     INDICATOR = AppIndicator3.Indicator.new(
         APPINDICATOR_ID,
-        utils.get_file("../furikura/icons/furi-active.png"),
+        utils.get_file("furikura/icons/furi-active.png"),
         AppIndicator3.IndicatorCategory.APPLICATION_STATUS
     )
 
@@ -55,7 +55,7 @@ class FuriKuraIndicator(object):
 
     def init_appindicator(self):
         self.INDICATOR.set_status(AppIndicator3.IndicatorStatus.ACTIVE)
-        self.INDICATOR.set_attention_icon(utils.get_file("../furikura/icons/furi-attention.png"))
+        self.INDICATOR.set_attention_icon(utils.get_file("furikura/icons/furi-attention.png"))
 
     def update_reddit_data(self):
         self.update_appindicator(self.request.fetch_user_info())
@@ -121,7 +121,7 @@ class FuriKuraIndicator(object):
             "quit": self.quit
         }
 
-        self.builder.add_from_file(utils.get_file('../furikura/ui/menu.xml'))
+        self.builder.add_from_file(utils.get_file('furikura/ui/menu.xml'))
         self.builder.connect_signals(signals)
 
         menu = self.builder.get_object("furikura_menu")
