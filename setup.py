@@ -6,9 +6,9 @@ setup(
     packages=['furikura'],
     data_files=[
         ('/usr/share/applications', ['furikura.desktop']),
-        ("furikura/icons/", ['furikura/icons/furi-active.png']),
-        ("furikura/icons/", ['furikura/icons/furi-attention.png']),
-        ("furikura/ui/", ['furikura/ui/menu.xml'])
+        ("/usr/share/furikura/icons/", ['furikura/icons/furi-active.png']),
+        ("/usr/share/furikura/icons/", ['furikura/icons/furi-attention.png']),
+        ("/usr/share/furikura/ui/", ['furikura/ui/menu.xml'])
     ],
     install_requires=[
         'Flask',
