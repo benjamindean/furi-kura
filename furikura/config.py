@@ -7,11 +7,11 @@ class Config(object):
     Create, update and store applications config.
     """
 
-    CONFIG_FILE = os.path.expanduser("~/.furikura")
-    DUMP_FILE = os.path.expanduser("~/.furikura_dump")
-    CLIENT_ID = "RQftQ0QKd9ZCDA"
-    REDIRECT_URI = "http://localhost:65010/reddit_callback"
-    USER_AGENT = "FuriKuraForReddit/0.1 by benjaminabel"
+    CONFIG_FILE = os.path.expanduser('~/.furikura')
+    DUMP_FILE = os.path.expanduser('~/.furikura_dump')
+    CLIENT_ID = 'RQftQ0QKd9ZCDA'
+    REDIRECT_URI = 'http://localhost:65010/reddit_callback'
+    USER_AGENT = 'FuriKuraForReddit/0.1 by benjaminabel'
 
     def __init__(self):
         print("Init config")

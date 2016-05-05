@@ -8,7 +8,7 @@ class FuriKura(object):
         self.config_storage = Config()
         self.ind_inst = FuriKuraIndicator(self.config_storage)
 
-        if not self.config_storage.get_value("access_token"):
+        if not self.config_storage.get_value('access_token'):
             self.handle_login()
         else:
             self.ind_inst.build_menu()
@@ -23,5 +23,5 @@ class FuriKura(object):
             import _thread as thread
 
         from . import login
-        thread.start_new_thread(login.run, ("FuriKura-Login-Server", 1,))
+        thread.start_new_thread(login.run, ('FuriKura-Login-Server', 1,))
         self.ind_inst.build_login_menu()

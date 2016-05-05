@@ -19,7 +19,7 @@ class FuriKuraIndicator(object):
     APPINDICATOR_ID = 'furikura_indicator'
     INDICATOR = AppIndicator3.Indicator.new(
         APPINDICATOR_ID,
-        utils.get_file("furikura/icons/furi-active.png"),
+        utils.get_file('furikura/icons/furi-active.png'),
         AppIndicator3.IndicatorCategory.APPLICATION_STATUS
     )
 
@@ -55,7 +55,7 @@ class FuriKuraIndicator(object):
 
     def init_appindicator(self):
         self.INDICATOR.set_status(AppIndicator3.IndicatorStatus.ACTIVE)
-        self.INDICATOR.set_attention_icon(utils.get_file("furikura/icons/furi-attention.png"))
+        self.INDICATOR.set_attention_icon(utils.get_file('furikura/icons/furi-attention.png'))
 
     def update_reddit_data(self):
         self.update_appindicator(self.request.fetch_user_info())
@@ -83,7 +83,7 @@ class FuriKuraIndicator(object):
     def open_inbox(self, widget):
         self.INDICATOR.set_status(AppIndicator3.IndicatorStatus.ACTIVE)
         self.set_inbox(0)
-        webbrowser.open("https://www.reddit.com/message/unread/", new=1, autoraise=True)
+        webbrowser.open('https://www.reddit.com/message/unread/', new=1, autoraise=True)
 
     def set_karma(self, link_karma, post_karma):
         self.builder.get_object('link_karma').set_label("Link Karma: %s" % link_karma)
@@ -110,28 +110,28 @@ class FuriKuraIndicator(object):
             self.config_storage.set_key('karma_view', position)
 
     def set_inbox(self, count):
-        self.builder.get_object("inbox").set_label("Inbox: %s" % count)
+        self.builder.get_object('inbox').set_label("Inbox: %s" % count)
 
     def build_menu(self):
         reddit_data = self.request.fetch_user_info()
         signals = {
-            "inbox_handler": self.open_inbox,
-            "karma_handler": self.toggle_karma_view,
-            "refresh_handler": self.set_refresh_interval,
-            "quit": self.quit
+            'inbox_handler': self.open_inbox,
+            'karma_handler': self.toggle_karma_view,
+            'refresh_handler': self.set_refresh_interval,
+            'quit': self.quit
         }
 
         self.builder.add_from_file(utils.get_file('furikura/ui/menu.xml'))
         self.builder.connect_signals(signals)
 
-        menu = self.builder.get_object("furikura_menu")
+        menu = self.builder.get_object('furikura_menu')
         menu.show_all()
 
         self.update_appindicator(reddit_data)
         self.run_background(self.config.get('refresh_interval'))
 
-        self.set_radio("refresh_interval")
-        self.set_radio("karma_view")
+        self.set_radio('refresh_interval')
+        self.set_radio('karma_view')
 
         self.INDICATOR.set_menu(menu)
 
