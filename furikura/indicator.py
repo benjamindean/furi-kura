@@ -17,9 +17,13 @@ from gi.repository import GObject
 class FuriKuraIndicator(object):
     # Init appindicator
     APPINDICATOR_ID = 'furikura_indicator'
+    ICONS = {
+        'active': utils.get_file('furikura/icons/furi-active.png'),
+        'attention':utils.get_file('furikura/icons/furi-attention.png')
+    }
     INDICATOR = AppIndicator3.Indicator.new(
         APPINDICATOR_ID,
-        utils.get_file('furikura/icons/furi-active.png'),
+        ICONS['active'],
         AppIndicator3.IndicatorCategory.APPLICATION_STATUS
     )
 
@@ -55,7 +59,7 @@ class FuriKuraIndicator(object):
 
     def init_appindicator(self):
         self.INDICATOR.set_status(AppIndicator3.IndicatorStatus.ACTIVE)
-        self.INDICATOR.set_attention_icon(utils.get_file('furikura/icons/furi-attention.png'))
+        self.INDICATOR.set_attention_icon(self.ICONS['attention'])
 
     def update_reddit_data(self):
         self.update_appindicator(self.request.fetch_user_info())
@@ -170,7 +174,8 @@ class FuriKuraIndicator(object):
         message_data = self.request.get_last_message()
         Notify.Notification.new(
             "reddit mail from <b>{author}</b>".format(author=message_data['author']),
-            message_data['body']
+            message_data['body'],
+            self.ICONS['active']
         ).show()
 
     def main_loop(self):
