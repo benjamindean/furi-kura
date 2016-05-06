@@ -1,5 +1,7 @@
 all: clean run
 
+VERSION=0.0.1
+
 clean:
 	find furikura -type f -name *.pyc | xargs rm -rf
 	find furikura -type d -name __pycache__ | xargs rm -rf
@@ -9,8 +11,11 @@ run:
 	bin/furikura
 
 deb:
-	python setup.py sdist
-	py2dsc-deb dist/furi-kura-*.tar.gz
+	python setup.py --command-packages=stdeb.command sdist_dsc -m "Benjamin Dean" --package "furi-kura"
+	cd deb_dist/furi-kura-$(VERSION)/ && dpkg-buildpackage -rfakeroot -uc -us
+
+rpm:
+	python setup.py bdist_rpm
 
 install:
 	sudo python setup.py install --record uninstall.txt

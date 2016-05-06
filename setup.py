@@ -15,7 +15,7 @@ setup(
     author='Benjamin Dean',
     description='Linux appindicator for reddit',
     data_files=[
-        ('/usr/share/applications', ['furikura.desktop']),
+        ('/usr/share/applications/', ['furikura.desktop']),
         ("/usr/share/furikura/icons/", ['furikura/icons/furi-active.png']),
         ("/usr/share/furikura/icons/", ['furikura/icons/furi-attention.png']),
         ("/usr/share/furikura/ui/", ['furikura/ui/menu.xml'])

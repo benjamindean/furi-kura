@@ -14,6 +14,7 @@ env/
 build/
 develop-eggs/
 dist/
+deb_dist/
 downloads/
 eggs/
 .eggs/
@@ -62,3 +63,6 @@ target/
 
 #Ipython Notebook
 .ipynb_checkpoints
+
+MANIFEST
+*.tar.gz
