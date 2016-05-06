@@ -13,7 +13,7 @@ setup(
     url='https://github.com/benjamindean/furi-kura',
     license='MIT',
     author='Benjamin Dean',
-    description='Linux appindicator for reddit',
+    description='Furi Kura for reddit',
     data_files=[
         ('/usr/share/applications/', ['furikura.desktop']),
         ("/usr/share/furikura/icons/", ['furikura/icons/furi-active.png']),
