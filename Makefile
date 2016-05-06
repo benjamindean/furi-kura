@@ -17,6 +17,9 @@ deb:
 rpm:
 	python setup.py bdist_rpm
 
+version:
+	sed -i 's/$(VERSION)/$(RELEASE)/g' setup.py Makefile
+
 install:
 	sudo python setup.py install --record uninstall.txt
 
