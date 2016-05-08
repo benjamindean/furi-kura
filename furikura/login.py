@@ -1,4 +1,5 @@
 import time
+from urllib.parse import urlencode
 
 import requests
 import requests.auth
@@ -51,8 +52,7 @@ def make_authorization_url():
               'redirect_uri': config_storage.REDIRECT_URI,
               'duration': 'permanent',
               'scope': 'identity,privatemessages'}
-    import urllib
-    url = 'https://www.reddit.com/api/v1/authorize?' + urllib.urlencode(params)
+    url = 'https://www.reddit.com/api/v1/authorize?' + urlencode(params)
     return url
 
 
