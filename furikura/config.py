@@ -7,8 +7,8 @@ class Config(object):
     Create, update and store applications config.
     """
 
-    CONFIG_FILE = os.path.expanduser('~/.furikura')
-    DUMP_FILE = os.path.expanduser('~/.furikura_dump')
+    CONFIG_FILE = os.path.expanduser('~/.config/furikura/.furikura')
+    DUMP_FILE = os.path.expanduser('~/.config/furikura/.furikura_dump')
     CLIENT_ID = 'RQftQ0QKd9ZCDA'
     REDIRECT_URI = 'http://localhost:65010/reddit_callback'
     USER_AGENT = 'FuriKuraForReddit/0.1 by benjaminabel'
@@ -47,6 +47,7 @@ class Config(object):
             'refresh_interval': 1,
             'karma_view': 'menu'
         }
+        os.makedirs(os.path.dirname(self.CONFIG_FILE), exist_ok=True)
         with open(self.CONFIG_FILE, 'w') as config_file:
             json.dump(config_dict, config_file)
 

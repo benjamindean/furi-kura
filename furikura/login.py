@@ -1,16 +1,14 @@
 import time
-from urllib.parse import urlencode
-
 import requests
 import requests.auth
+
+from urllib.parse import urlencode
 from flask import Flask, abort, request
 
 from .config import Config
 
 config_storage = Config()
 app = Flask(__name__)
-
-print("Init login")
 
 
 @app.route('/')
