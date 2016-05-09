@@ -74,12 +74,12 @@ class FuriKuraIndicator(object):
         self.local_data = reddit_data
 
     def run_background(self, interval):
-        timeout = interval * 60 * 1000
+        timeout = 5000 #interval * 60 * 1000
         self.services['timeout'] = GObject.timeout_add(timeout, self.update_reddit_data)
 
     def set_refresh_interval(self, widget):
         interval = int(widget.get_name())
-        if interval != self.config['refresh_interval']:
+        if interval != self.config.get('refresh_interval'):
             GObject.source_remove(self.services['timeout'])
             self.run_background(interval)
             self.config_storage.set_key('refresh_interval', interval)
@@ -116,12 +116,18 @@ class FuriKuraIndicator(object):
     def set_inbox(self, count):
         self.builder.get_object('inbox').set_label("Inbox: %s" % count)
 
+    def notifications_handler(self, widget):
+        notifications = int(widget.get_name())
+        if notifications != self.config.get('notifications'):
+            self.config_storage.set_key('notifications', notifications)
+
     def build_menu(self):
         reddit_data = self.request.fetch_user_info()
         signals = {
             'inbox_handler': self.open_inbox,
             'karma_handler': self.toggle_karma_view,
             'refresh_handler': self.set_refresh_interval,
+            'notifications_handler': self.notifications_handler,
             'quit': self.quit
         }
 
@@ -136,6 +142,7 @@ class FuriKuraIndicator(object):
 
         self.set_radio('refresh_interval')
         self.set_radio('karma_view')
+        self.set_radio('notifications')
 
         self.INDICATOR.set_menu(menu)
 
@@ -162,21 +169,30 @@ class FuriKuraIndicator(object):
     def set_radio(self, item_id):
         view = self.builder.get_object(item_id).get_children()
         for child in view:
-            if str(child.get_name()) == str(self.config[item_id]):
+            if str(child.get_name()) == str(self.config.get(item_id)):
                 child.set_active("True")
 
     def mail_notify(self, inbox_count):
         self.INDICATOR.set_status(AppIndicator3.IndicatorStatus.ATTENTION)
 
-        if not self.services['notification']:
-            self.services['notification'] = Notify.init(self.APPINDICATOR_ID)
+        if self.config.get('notifications') != 0:
 
-        message_data = self.request.get_last_message()
-        Notify.Notification.new(
-            "reddit mail from <b>{author}</b>".format(author=message_data['author']),
-            message_data['body'],
-            self.ICONS['active']
-        ).show()
+            if not self.services['notification']:
+                self.services['notification'] = Notify.init(self.APPINDICATOR_ID)
+
+            if self.config.get('notifications') == 1:
+                message_data = self.request.get_last_message()
+                header = "reddit mail from <b>{author}</b>".format(author=message_data['author'])
+                body = message_data['body']
+            else:
+                header = "You have a new reddit mail"
+                body = ''
+
+            Notify.Notification.new(
+                header,
+                body,
+                self.ICONS['active']
+            ).show()
 
     def main_loop(self):
         Gtk.main()

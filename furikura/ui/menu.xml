@@ -52,7 +52,7 @@
                         <property name="can_focus">False</property>
                         <child>
                             <object class="GtkMenuItem">
-                                <property name="label">Show Karma</property>
+                                <property name="label">Karma</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
                                 <property name="use_underline">True</property>
@@ -138,6 +138,51 @@
                                 </child>
                             </object>
                         </child>
+                        <child>
+                            <object class="GtkMenuItem">
+                                <property name="label">Notifications</property>
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="use_underline">True</property>
+                                <child type="submenu">
+                                    <object class="GtkMenu" id="notifications">
+                                        <child>
+                                            <object class="GtkRadioMenuItem" id="with_content">
+                                                <property name="label">With Content</property>
+                                                <property name="visible">True</property>
+                                                <property name="can_focus">False</property>
+                                                <property name="use_underline">True</property>
+                                                <property name="name">1</property>
+                                                <signal name="activate" handler="notifications_handler" swapped="no"/>
+                                            </object>
+                                        </child>
+                                        <child>
+                                            <object class="GtkRadioMenuItem" id="without_content">
+                                                <property name="label">Without Content</property>
+                                                <property name="visible">True</property>
+                                                <property name="can_focus">False</property>
+                                                <property name="use_underline">True</property>
+                                                <property name="name">2</property>
+                                                <property name="group">with_content</property>
+                                                <signal name="activate" handler="notifications_handler" swapped="no"/>
+                                            </object>
+                                        </child>
+                                        <child>
+                                            <object class="GtkRadioMenuItem" id="off">
+                                                <property name="label">Off</property>
+                                                <property name="visible">True</property>
+                                                <property name="can_focus">False</property>
+                                                <property name="use_underline">True</property>
+                                                <property name="name">0</property>
+                                                <property name="group">with_content</property>
+                                                <signal name="activate" handler="notifications_handler" swapped="no"/>
+                                            </object>
+                                        </child>
+                                    </object>
+                                </child>
+                            </object>
+                        </child>
+
                     </object>
                 </child>
             </object>

@@ -45,7 +45,8 @@ class Config(object):
         print("Writing config")
         config_dict = {
             'refresh_interval': 1,
-            'karma_view': 'menu'
+            'karma_view': 'menu',
+            'notifications': 1
         }
         os.makedirs(os.path.dirname(self.CONFIG_FILE), exist_ok=True)
         with open(self.CONFIG_FILE, 'w') as config_file:
