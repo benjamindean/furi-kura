@@ -6,6 +6,7 @@ from urllib.parse import urlencode
 from flask import Flask, abort, request
 
 from .config import Config
+from . import utils
 
 config_storage = Config()
 app = Flask(__name__)
@@ -13,7 +14,12 @@ app = Flask(__name__)
 
 @app.route('/')
 def homepage():
-    text = '<a href="%s">Authenticate with reddit</a>'
+    try:
+        with open(utils.get_file('furikura/ui/login/login.html')) as html:
+            text = html.read()
+    except IOError:
+        text = '<a href="%s">Authenticate with reddit</a>'
+
     return text % make_authorization_url()
 
 
@@ -32,12 +38,18 @@ def reddit_callback():
     config_storage.set_key('refresh_token', tokens['refresh_token'])
     config_storage.set_key('token_expires', time.time() + 3600)
 
+    try:
+        with open(utils.get_file('furikura/ui/login/success.html')) as html:
+            text = html.read()
+    except IOError:
+        text = 'You have successfully logged in'
+
     from .indicator import FuriKuraIndicator
     ind = FuriKuraIndicator(config_storage)
     ind.build_menu()
     shutdown_server()
 
-    return "You are logged in"
+    return text
 
 
 def make_authorization_url():
