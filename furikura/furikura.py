@@ -1,4 +1,5 @@
 import signal
+
 from .config import Config
 from .indicator import FuriKuraIndicator
 

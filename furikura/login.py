@@ -1,12 +1,11 @@
 import time
 import requests
 import requests.auth
-
 from urllib.parse import urlencode
 from flask import Flask, abort, request
 
-from .config import Config
 from . import utils
+from .config import Config
 
 config_storage = Config()
 app = Flask(__name__)
@@ -44,9 +43,12 @@ def reddit_callback():
     except IOError:
         text = 'You have successfully logged in'
 
+    time.sleep(3)
+
     from .indicator import FuriKuraIndicator
     ind = FuriKuraIndicator(config_storage)
     ind.build_menu()
+
     shutdown_server()
 
     return text
