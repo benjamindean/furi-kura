@@ -68,8 +68,7 @@ class FuriKuraIndicator(object):
 
     def update_appindicator(self, reddit_data):
         self.set_inbox(reddit_data['inbox_count'])
-        if reddit_data['inbox_count'] > self.local_data['inbox_count']:
-            self.mail_notify(reddit_data['inbox_count'])
+        self.mail_notify(reddit_data['inbox_count'])
         self.set_karma(reddit_data['link_karma'], reddit_data['comment_karma'])
         self.local_data = reddit_data
 
@@ -173,6 +172,12 @@ class FuriKuraIndicator(object):
                 child.set_active("True")
 
     def mail_notify(self, inbox_count):
+
+        if inbox_count == self.local_data['inbox_count']: return
+        elif inbox_count < self.local_data['inbox_count']:
+            self.INDICATOR.set_status(AppIndicator3.IndicatorStatus.ACTIVE)
+            return
+
         self.INDICATOR.set_status(AppIndicator3.IndicatorStatus.ATTENTION)
 
         if self.config.get('notifications') != 0:
