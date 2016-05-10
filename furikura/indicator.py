@@ -62,7 +62,7 @@ class FuriKuraIndicator(object):
         self.INDICATOR.set_attention_icon(self.ICONS['attention'])
 
     def update_reddit_data(self):
-        self.update_appindicator(self.request.fetch_user_info())
+        self.update_appindicator(self.request.get_user_info())
         print("Updated")
         return True
 
@@ -122,7 +122,7 @@ class FuriKuraIndicator(object):
             self.config_storage.set_key('notifications', notifications)
 
     def build_menu(self):
-        reddit_data = self.request.fetch_user_info()
+        reddit_data = self.request.get_user_info()
         signals = {
             'inbox_handler': self.open_inbox,
             'karma_handler': self.toggle_karma_view,

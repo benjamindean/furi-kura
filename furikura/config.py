@@ -8,7 +8,6 @@ class Config(object):
     """
 
     CONFIG_FILE = os.path.expanduser('~/.config/furikura/furikura')
-    DUMP_FILE = os.path.expanduser('~/.config/furikura/furikura_dump')
     CLIENT_ID = 'RQftQ0QKd9ZCDA'
     REDIRECT_URI = 'http://localhost:65010/reddit_callback'
     USER_AGENT = 'FuriKuraForReddit/0.1 by benjaminabel'

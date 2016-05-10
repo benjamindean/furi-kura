@@ -15,11 +15,11 @@ app = Flask(__name__)
 def homepage():
     try:
         with open(utils.get_file('furikura/ui/login/login.html')) as html:
-            text = html.read()
+            login_html = html.read()
     except IOError:
-        text = '<a href="%s">Authenticate with reddit</a>'
+        login_html = '<a href="%s">Authenticate with reddit</a>'
 
-    return text % make_authorization_url()
+    return login_html % make_authorization_url()
 
 
 @app.route('/reddit_callback')
@@ -39,9 +39,9 @@ def reddit_callback():
 
     try:
         with open(utils.get_file('furikura/ui/login/success.html')) as html:
-            text = html.read()
+            success_html = html.read()
     except IOError:
-        text = 'You have successfully logged in'
+        success_html = 'You have successfully logged in'
 
     time.sleep(3)
 
@@ -51,8 +51,7 @@ def reddit_callback():
 
     shutdown_server()
 
-    return text
-
+    return success_html
 
 def make_authorization_url():
     from uuid import uuid4
@@ -67,7 +66,6 @@ def make_authorization_url():
     url = 'https://www.reddit.com/api/v1/authorize?' + urlencode(params)
     return url
 
-
 def get_token(code):
     client_auth = requests.auth.HTTPBasicAuth(config_storage.CLIENT_ID, "")
     post_data = {'grant_type': 'authorization_code',
@@ -81,21 +79,17 @@ def get_token(code):
     )
     return response.json()
 
-
 def shutdown_server():
     func = request.environ.get('werkzeug.server.shutdown')
     if func is None:
         raise RuntimeError('Not running with the Werkzeug Server')
     func()
 
-
 def save_created_state(state):
     pass
 
-
 def is_valid_state(state):
     return True
-
 
 def run(*args):
     app.run(debug=False, port=65010)
