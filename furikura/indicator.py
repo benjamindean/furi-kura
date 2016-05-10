@@ -134,15 +134,15 @@ class FuriKuraIndicator(object):
         self.builder.add_from_file(utils.get_file('furikura/ui/menu.xml'))
         self.builder.connect_signals(signals)
 
+        menu = self.builder.get_object('furikura_menu')
+        menu.show_all()
+
         self.update_appindicator(reddit_data)
         self.run_background(self.config.get('refresh_interval'))
 
         self.set_radio('refresh_interval')
         self.set_radio('karma_view')
         self.set_radio('notifications')
-
-        menu = self.builder.get_object('furikura_menu')
-        menu.show_all()
 
         self.INDICATOR.set_menu(menu)
 
