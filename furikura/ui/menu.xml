@@ -12,7 +12,6 @@
                 <property name="can_focus">False</property>
                 <property name="use_action_appearance">False</property>
                 <property name="label" translatable="yes">Inbox:</property>
-                <property name="use_underline">True</property>
                 <signal name="activate" handler="inbox_handler" swapped="no"/>
             </object>
         </child>
@@ -22,7 +21,6 @@
                 <property name="can_focus">False</property>
                 <property name="use_action_appearance">False</property>
                 <property name="label" translatable="yes">Link Karma:</property>
-                <property name="use_underline">True</property>
             </object>
         </child>
         <child>
@@ -31,7 +29,6 @@
                 <property name="can_focus">False</property>
                 <property name="use_action_appearance">False</property>
                 <property name="label" translatable="yes">Post Karma:</property>
-                <property name="use_underline">True</property>
             </object>
         </child>
         <child>
@@ -45,7 +42,6 @@
                 <property name="can_focus">False</property>
                 <property name="use_action_appearance">False</property>
                 <property name="label" translatable="yes">Settings</property>
-                <property name="use_underline">True</property>
                 <child type="submenu">
                     <object class="GtkMenu">
                         <property name="visible">True</property>
@@ -55,7 +51,6 @@
                                 <property name="label">Karma</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
-                                <property name="use_underline">True</property>
                                 <child type="submenu">
                                     <object class="GtkMenu" id="karma_view">
                                         <child>
@@ -63,7 +58,6 @@
                                                 <property name="label">Menu</property>
                                                 <property name="visible">True</property>
                                                 <property name="can_focus">False</property>
-                                                <property name="use_underline">True</property>
                                                 <property name="name">menu</property>
                                                 <signal name="activate" handler="karma_handler" swapped="no"/>
                                             </object>
@@ -73,7 +67,6 @@
                                                 <property name="label">Icon</property>
                                                 <property name="visible">True</property>
                                                 <property name="can_focus">False</property>
-                                                <property name="use_underline">True</property>
                                                 <property name="name">icon</property>
                                                 <property name="group">menu</property>
                                                 <signal name="activate" handler="karma_handler" swapped="no"/>
@@ -88,7 +81,6 @@
                                 <property name="label">Refresh</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
-                                <property name="use_underline">True</property>
                                 <child type="submenu">
                                     <object class="GtkMenu" id="refresh_interval">
                                         <child>
@@ -96,7 +88,6 @@
                                                 <property name="label">1 minute</property>
                                                 <property name="visible">True</property>
                                                 <property name="can_focus">False</property>
-                                                <property name="use_underline">True</property>
                                                 <property name="name">1</property>
                                                 <signal name="activate" handler="refresh_handler" swapped="no"/>
                                             </object>
@@ -106,7 +97,6 @@
                                                 <property name="label">10 minutes</property>
                                                 <property name="visible">True</property>
                                                 <property name="can_focus">False</property>
-                                                <property name="use_underline">True</property>
                                                 <property name="name">10</property>
                                                 <property name="group">one_minute</property>
                                                 <signal name="activate" handler="refresh_handler" swapped="no"/>
@@ -117,7 +107,6 @@
                                                 <property name="label">30 minutes</property>
                                                 <property name="visible">True</property>
                                                 <property name="can_focus">False</property>
-                                                <property name="use_underline">True</property>
                                                 <property name="name">30</property>
                                                 <property name="group">one_minute</property>
                                                 <signal name="activate" handler="refresh_handler" swapped="no"/>
@@ -128,7 +117,6 @@
                                                 <property name="label">1 hour</property>
                                                 <property name="visible">True</property>
                                                 <property name="can_focus">False</property>
-                                                <property name="use_underline">True</property>
                                                 <property name="name">60</property>
                                                 <property name="group">one_minute</property>
                                                 <signal name="activate" handler="refresh_handler" swapped="no"/>
@@ -143,7 +131,6 @@
                                 <property name="label">Notifications</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
-                                <property name="use_underline">True</property>
                                 <child type="submenu">
                                     <object class="GtkMenu" id="notifications">
                                         <child>
@@ -151,7 +138,6 @@
                                                 <property name="label">With Content</property>
                                                 <property name="visible">True</property>
                                                 <property name="can_focus">False</property>
-                                                <property name="use_underline">True</property>
                                                 <property name="name">1</property>
                                                 <signal name="activate" handler="notifications_handler" swapped="no"/>
                                             </object>
@@ -161,7 +147,6 @@
                                                 <property name="label">Without Content</property>
                                                 <property name="visible">True</property>
                                                 <property name="can_focus">False</property>
-                                                <property name="use_underline">True</property>
                                                 <property name="name">2</property>
                                                 <property name="group">with_content</property>
                                                 <signal name="activate" handler="notifications_handler" swapped="no"/>
@@ -172,7 +157,6 @@
                                                 <property name="label">Off</property>
                                                 <property name="visible">True</property>
                                                 <property name="can_focus">False</property>
-                                                <property name="use_underline">True</property>
                                                 <property name="name">0</property>
                                                 <property name="group">with_content</property>
                                                 <signal name="activate" handler="notifications_handler" swapped="no"/>
@@ -198,7 +182,6 @@
                 <property name="can_focus">False</property>
                 <property name="use_action_appearance">False</property>
                 <property name="label" translatable="yes">Quit</property>
-                <property name="use_underline">True</property>
                 <signal name="activate" handler="quit" swapped="no"/>
             </object>
         </child>
