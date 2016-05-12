@@ -16,19 +16,11 @@
             </object>
         </child>
         <child>
-            <object class="GtkMenuItem" id="link_karma">
+            <object class="GtkMenuItem" id="karma">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="use_action_appearance">False</property>
-                <property name="label" translatable="yes">Link Karma:</property>
-            </object>
-        </child>
-        <child>
-            <object class="GtkMenuItem" id="comment_karma">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="use_action_appearance">False</property>
-                <property name="label" translatable="yes">Post Karma:</property>
+                <property name="label" translatable="yes">Karma:</property>
             </object>
         </child>
         <child>

@@ -55,6 +55,9 @@ class FuriKuraIndicator(object):
             'timeout': False
         }
 
+        # Init karma view
+        self.karma = ''
+
         self.init_appindicator()
 
     def init_appindicator(self):
@@ -65,6 +68,10 @@ class FuriKuraIndicator(object):
         self.update_appindicator(self.request.get_user_info())
         print("Updated")
         return True
+
+    """
+    Background processing.
+    """
 
     def update_appindicator(self, reddit_data):
         self.set_inbox(reddit_data['inbox_count'])
@@ -83,42 +90,56 @@ class FuriKuraIndicator(object):
             self.run_background(interval)
             self.config_storage.set_key('refresh_interval', interval)
 
+    """
+    Karma handlers.
+    """
+
+    def set_karma(self, link_karma, post_karma):
+        self.karma = "{link} | {post}".format(
+            link=link_karma,
+            post=post_karma
+        )
+        self.update_karma_view()
+
+    def update_karma_view(self):
+        view = self.config['karma_view']
+        if view == 'icon': self.INDICATOR.set_label(self.karma, 'karma_label')
+        else: self.builder.get_object('karma').set_label("Karma: %s" % self.karma)
+
+    def toggle_karma_view(self, widget):
+        view = str(widget.get_name())
+
+        if view != self.config['karma_view']:
+            self.config_storage.set_key('karma_view', view)
+
+        if view == 'icon':
+            self.builder.get_object('karma').hide()
+            self.update_karma_view()
+        else:
+            self.builder.get_object('karma').show()
+            self.INDICATOR.set_label('', 'karma_label')
+            self.update_karma_view()
+
+    """
+    Inbox handlers.
+    """
+
+    def set_inbox(self, count):
+        self.builder.get_object('inbox').set_label("Inbox: %s" % count)
+
     def open_inbox(self, widget):
         self.INDICATOR.set_status(AppIndicator3.IndicatorStatus.ACTIVE)
         self.set_inbox(0)
         webbrowser.open('https://www.reddit.com/message/unread/', new=1, autoraise=True)
 
-    def set_karma(self, link_karma, post_karma):
-        self.builder.get_object('link_karma').set_label("Link Karma: %s" % link_karma)
-        self.builder.get_object('comment_karma').set_label("Comment Karma: %s" % post_karma)
-
-    def toggle_karma_view(self, widget):
-        position = str(widget.get_name())
-        karma_widgets = ('link_karma', 'comment_karma')
-
-        if position == 'icon':
-            karma = "{link} | {post}".format(
-                link=self.local_data['link_karma'],
-                post=self.local_data['comment_karma']
-            )
-            for karma_entry in karma_widgets:
-                self.builder.get_object(karma_entry).hide()
-            self.INDICATOR.set_label(karma, 'karma_label')
-        else:
-            for karma_entry in karma_widgets:
-                self.builder.get_object(karma_entry).show()
-            self.INDICATOR.set_label('', 'karma_label')
-
-        if position != self.config['karma_view']:
-            self.config_storage.set_key('karma_view', position)
-
-    def set_inbox(self, count):
-        self.builder.get_object('inbox').set_label("Inbox: %s" % count)
-
     def notifications_handler(self, widget):
         notifications = int(widget.get_name())
         if notifications != self.config.get('notifications'):
             self.config_storage.set_key('notifications', notifications)
+
+    """
+    Menu handlers.
+    """
 
     def build_menu(self):
         reddit_data = self.request.get_user_info()
