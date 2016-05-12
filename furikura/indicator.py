@@ -24,7 +24,7 @@ class FuriKuraIndicator(object):
     INDICATOR = AppIndicator3.Indicator.new(
         APPINDICATOR_ID,
         ICONS['active'],
-        AppIndicator3.IndicatorCategory.APPLICATION_STATUS
+        AppIndicator3.IndicatorCategory.COMMUNICATIONS
     )
 
     def __init__(self, config_storage):
