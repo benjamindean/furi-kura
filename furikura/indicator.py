@@ -193,7 +193,11 @@ class FuriKuraIndicator(object):
                 child.set_active("True")
 
     def mail_notify(self, inbox_count):
-
+        """
+        If inbox_count is unchanged from last update - exit the function.
+        If new inbox_count is smaller - user read the message
+        somewhere else (browser, phone app, etc).
+        """
         if inbox_count == self.local_data['inbox_count']: return
         elif inbox_count < self.local_data['inbox_count']:
             self.INDICATOR.set_status(AppIndicator3.IndicatorStatus.ACTIVE)
@@ -201,24 +205,24 @@ class FuriKuraIndicator(object):
 
         self.INDICATOR.set_status(AppIndicator3.IndicatorStatus.ATTENTION)
 
-        if self.config.get('notifications') != 0:
+        if not self.config.get('notifications'): return
 
-            if not self.services['notification']:
-                self.services['notification'] = Notify.init(self.APPINDICATOR_ID)
+        if not self.services['notification']:
+            self.services['notification'] = Notify.init(self.APPINDICATOR_ID)
 
-            if self.config.get('notifications') == 1:
-                message_data = self.request.get_last_message()
-                header = "reddit mail from <b>{author}</b>".format(author=message_data['author'])
-                body = message_data['body']
-            else:
-                header = "You have a new reddit mail"
-                body = ''
+        if self.config.get('notifications') == 1:
+            message_data = self.request.get_last_message()
+            header = "reddit mail from <b>{author}</b>".format(author=message_data['author'])
+            body = message_data['body']
+        else:
+            header = "You have a new reddit mail"
+            body = ''
 
-            Notify.Notification.new(
-                header,
-                body,
-                self.ICONS['active']
-            ).show()
+        Notify.Notification.new(
+            header,
+            body,
+            self.ICONS['active']
+        ).show()
 
     def main_loop(self):
         Gtk.main()
