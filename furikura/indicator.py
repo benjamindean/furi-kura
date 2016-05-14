@@ -76,7 +76,7 @@ class FuriKuraIndicator(object):
     def update_appindicator(self, reddit_data):
         self.set_inbox(reddit_data['inbox_count'])
         self.mail_notify(reddit_data['inbox_count'])
-        self.set_karma(reddit_data['link_karma'], reddit_data['comment_karma'])
+        self.set_karma(link_karma=reddit_data['link_karma'], post_karma=reddit_data['comment_karma'])
         self.local_data = reddit_data
 
     def run_background(self, interval):
@@ -94,10 +94,21 @@ class FuriKuraIndicator(object):
     Karma handlers.
     """
 
-    def set_karma(self, link_karma, post_karma):
-        self.karma = "{link} | {post}".format(
-            link=link_karma,
-            post=post_karma
+    def set_karma(self, **kwargs):
+        arrows = {}
+
+        for karma in kwargs.keys():
+            if self.local_data.get(karma):
+                if self.local_data[karma] > kwargs[karma]:
+                    arrows[karma] = '\u2191'
+                elif self.local_data[karma] < kwargs[karma]:
+                    arrows[karma] = '\u2193'
+
+        self.karma = "{link_arrow}{link} | {post_arrow}{post}".format(
+            link=kwargs['link_karma'],
+            post=kwargs['post_karma'],
+            link_arrow=arrows.get('link_karma') or '',
+            post_arrow=arrows.get('post_karma') or ''
         )
         self.update_karma_view()
 
