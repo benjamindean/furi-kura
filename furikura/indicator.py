@@ -51,12 +51,12 @@ class FuriKuraIndicator(object):
 
         # Running services
         self.services = {
-            'notification': False,
-            'timeout': False
+            'notification': None,
+            'timeout': None
         }
 
         # Init karma view
-        self.karma = ''
+        self.karma = None
 
         self.init_appindicator()
 
