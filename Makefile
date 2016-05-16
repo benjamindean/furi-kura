@@ -1,6 +1,6 @@
 all: clean run
 
-VERSION=0.0.2
+VERSION=0.0.3
 
 clean:
 	find furikura -type f -name *.pyc | xargs rm -rf
@@ -20,6 +20,7 @@ rpm:
 
 version:
 	sed -i 's/$(VERSION)/$(V)/g' setup.py Makefile
+	git add -A && git commit -m "Prepare $(V) release"
 
 install:
 	sudo python3 setup.py install --record uninstall.txt
