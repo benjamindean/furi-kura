@@ -9,7 +9,7 @@ setup(
         'pygobject',
         'requests'
     ],
-    scripts=['bin/furikura'],
+    scripts=['bin/furi-kura'],
     url='https://github.com/benjamindean/furi-kura',
     license='MIT',
     author='Benjamin Dean',
