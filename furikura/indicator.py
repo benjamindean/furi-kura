@@ -74,6 +74,7 @@ class FuriKuraIndicator(object):
     """
 
     def update_appindicator(self, reddit_data):
+        if not reddit_data: return
         self.set_inbox(reddit_data['inbox_count'])
         self.mail_notify(reddit_data['inbox_count'])
         self.set_karma(reddit_data['link_karma'], reddit_data['comment_karma'])
