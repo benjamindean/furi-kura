@@ -98,9 +98,9 @@ class FuriKuraIndicator(object):
     def __compare_karma(self, karma_view, karma):
         if not self.local_data[karma_view]: return
         if self.local_data[karma_view] > karma:
-            return '\u2191'
-        elif self.local_data[karma_view] < karma:
             return '\u2193'
+        elif self.local_data[karma_view] < karma:
+            return '\u2191'
 
     def set_karma(self, link_karma, comment_karma):
         self.karma = "{link_arrow}{link} | {comment_arrow}{post}".format(

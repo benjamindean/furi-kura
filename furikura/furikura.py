@@ -1,4 +1,6 @@
 import signal
+import os
+import sys
 
 from .config import Config
 from .indicator import FuriKuraIndicator
@@ -6,6 +8,7 @@ from .indicator import FuriKuraIndicator
 
 class FuriKura(object):
     def __init__(self):
+        self.check_lock()
         self.config_storage = Config()
         self.ind_inst = FuriKuraIndicator(self.config_storage)
 
@@ -26,3 +29,16 @@ class FuriKura(object):
         from . import login
         thread.start_new_thread(login.run, ('FuriKura-Login-Server', 1,))
         self.ind_inst.build_login_menu()
+
+    def check_lock(self):
+        lockfile = os.path.expanduser('~/.config/furikura/furikura.lock')
+
+        if os.path.isfile(lockfile):
+            with open(lockfile, "r") as pidfile:
+                if os.path.exists("/proc/%s" % pidfile.readline()):
+                    sys.exit(1)
+                else:
+                    os.remove(lockfile)
+
+        with open(lockfile, "w") as lockfile:
+            lockfile.write("%s" % os.getpid())
