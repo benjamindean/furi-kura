@@ -50,7 +50,6 @@ def reddit_callback():
     ind.build_menu()
 
     shutdown_server()
-
     return success_html
 
 def make_authorization_url():

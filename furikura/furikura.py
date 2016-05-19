@@ -1,6 +1,6 @@
-import signal
 import os
 import sys
+import signal
 
 from .config import Config
 from .indicator import FuriKuraIndicator
@@ -39,6 +39,8 @@ class FuriKura(object):
                     sys.exit(1)
                 else:
                     os.remove(lockfile)
+        else:
+            os.makedirs(os.path.dirname(lockfile), exist_ok=True)
 
         with open(lockfile, "w") as lockfile:
             lockfile.write("%s" % os.getpid())
