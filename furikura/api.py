@@ -14,7 +14,11 @@ class API(object):
         """
         Get new token using refresh token.
         """
-        client_auth = requests.auth.HTTPBasicAuth(self.config_storage.CLIENT_ID, "")
+        try:
+            client_auth = requests.auth.HTTPBasicAuth(self.config_storage.CLIENT_ID, "")
+        except requests.exceptions.ConnectionError:
+            return False
+
         response = requests.post(
             'https://www.reddit.com/api/v1/access_token',
             auth=client_auth,
@@ -53,7 +57,12 @@ class API(object):
         """
         if self.check_token():
             self.get_new_token()
-        response = requests.get('https://oauth.reddit.com/api/v1/me', headers=self.headers)
+
+        try:
+            response = requests.get('https://oauth.reddit.com/api/v1/me', headers=self.headers)
+        except requests.exceptions.ConnectionError:
+            return False
+
         return response.json()
 
     def get_last_message(self):
