@@ -9,8 +9,8 @@ class Config(object):
 
     CONFIG_FILE = os.path.expanduser('~/.config/furikura/furikura')
     CLIENT_ID = 'RQftQ0QKd9ZCDA'
-    LOGIN_ADDRESS = 'http://localhost:65010'
-    REDIRECT_URI = LOGIN_ADDRESS + '/reddit_callback'
+    LOGIN_URI = 'http://localhost:65010'
+    REDIRECT_URI = LOGIN_URI + '/reddit_callback'
     USER_AGENT = 'FuriKuraForReddit/0.1 by benjaminabel'
 
     def __init__(self):

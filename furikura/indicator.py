@@ -179,7 +179,7 @@ class FuriKuraIndicator(object):
     def build_login_menu(self):
 
         def open_login(context):
-            webbrowser.open(self.config_storage.LOGIN_ADDRESS, new=1, autoraise=True)
+            webbrowser.open(self.config_storage.LOGIN_URI, new=1, autoraise=True)
 
         login_menu = Gtk.Menu()
         item_login = Gtk.MenuItem('Login')
