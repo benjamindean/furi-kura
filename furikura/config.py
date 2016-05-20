@@ -14,7 +14,6 @@ class Config(object):
     REDIRECT_URI = LOGIN_URI + '/reddit_callback'
     USER_AGENT = 'FuriKuraForReddit/0.1 by benjaminabel'
 
-    @debug
     def __init__(self):
         self.config = self.read_config()
         self.headers = {}

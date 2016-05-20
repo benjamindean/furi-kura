@@ -28,7 +28,6 @@ class FuriKuraIndicator(object):
         AppIndicator3.IndicatorCategory.COMMUNICATIONS
     )
 
-    @debug
     def __init__(self, config_storage):
 
         # Throwing config class here
@@ -57,7 +56,7 @@ class FuriKuraIndicator(object):
         }
 
         # Init karma view
-        self.karma = '0 | 0'
+        self.karma = '? | ?'
 
         self.init_appindicator()
 
