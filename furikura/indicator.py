@@ -79,8 +79,8 @@ class FuriKuraIndicator(object):
         self.set_karma(reddit_data['link_karma'], reddit_data['comment_karma'])
         self.local_data = reddit_data
 
-    def run_background(self, interval):
-        timeout = 10000 #interval * 60 * 1000
+    def run_background(self, interval=1):
+        timeout = interval * 60 * 1000
         self.services['timeout'] = GObject.timeout_add(timeout, self.update_reddit_data)
 
     def set_refresh_interval(self, widget):
