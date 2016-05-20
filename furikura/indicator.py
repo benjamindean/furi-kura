@@ -64,7 +64,6 @@ class FuriKuraIndicator(object):
         self.INDICATOR.set_status(AppIndicator3.IndicatorStatus.ACTIVE)
         self.INDICATOR.set_attention_icon(self.ICONS['attention'])
 
-    @debug
     def update_reddit_data(self):
         self.update_appindicator(self.request.get_user_info())
         return True
@@ -81,7 +80,7 @@ class FuriKuraIndicator(object):
         self.local_data = reddit_data
 
     def run_background(self, interval):
-        timeout = interval * 60 * 1000
+        timeout = 10000 #interval * 60 * 1000
         self.services['timeout'] = GObject.timeout_add(timeout, self.update_reddit_data)
 
     def set_refresh_interval(self, widget):
@@ -140,6 +139,7 @@ class FuriKuraIndicator(object):
     def open_inbox(self, widget):
         self.INDICATOR.set_status(AppIndicator3.IndicatorStatus.ACTIVE)
         self.set_inbox(0)
+        self.local_data['inbox_count'] = 0
         webbrowser.open('https://www.reddit.com/message/unread/', new=1, autoraise=True)
 
     def notifications_handler(self, widget):

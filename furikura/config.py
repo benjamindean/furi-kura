@@ -18,7 +18,6 @@ class Config(object):
         self.config = self.read_config()
         self.headers = {}
 
-    @debug
     def get_headers(self, token):
         """
         Setting authorisation headers with USER_AGENT and Access Token and
@@ -27,7 +26,6 @@ class Config(object):
         self.headers = {"Authorization": "bearer %s" % token, "User-Agent": self.USER_AGENT}
         return self.headers
 
-    @debug
     def read_config(self):
         """
         Return the contents of a config file.
@@ -38,7 +36,6 @@ class Config(object):
         with open(self.CONFIG_FILE, 'r') as config_file:
             return json.load(config_file)
 
-    @debug
     def write_config(self):
         """
         Create config file with some default values.
@@ -52,7 +49,6 @@ class Config(object):
         with open(self.CONFIG_FILE, 'w') as config_file:
             json.dump(config_dict, config_file)
 
-    @debug
     def set_key(self, key, value):
         """
         Create or update config key.
@@ -62,7 +58,6 @@ class Config(object):
             with open(self.CONFIG_FILE, 'w') as config_file:
                 json.dump(self.config, config_file)
 
-    @debug
     def get_value(self, key):
         """
         Get value of a config key.
