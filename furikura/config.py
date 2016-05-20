@@ -19,7 +19,7 @@ class Config(object):
         self.headers = {}
 
     @debug
-    def set_headers(self, token):
+    def get_headers(self, token):
         """
         Setting authorisation headers with USER_AGENT and Access Token and
         returning it.

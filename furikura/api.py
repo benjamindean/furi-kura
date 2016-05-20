@@ -9,7 +9,7 @@ class API(object):
         self.config = self.config_storage.config
         self.refresh_token = self.config.get('refresh_token')
         self.token_expires = self.config.get("token_expires")
-        self.headers = self.config_storage.set_headers(self.config.get('access_token'))
+        self.headers = self.config_storage.get_headers(self.config.get('access_token'))
 
     @check_connection
     def get_new_token(self):
@@ -47,7 +47,7 @@ class API(object):
         Set token config value and update headers.
         """
         self.config_storage.set_key('access_token', token)
-        self.headers = self.config_storage.set_headers(token)
+        self.headers = self.config_storage.get_headers(token)
 
     @check_connection
     def get_user_info(self):
