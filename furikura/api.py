@@ -1,5 +1,6 @@
 import time
 import requests.auth
+from .utils import check_connection
 
 
 class API(object):
@@ -10,17 +11,12 @@ class API(object):
         self.token_expires = self.config.get("token_expires")
         self.headers = self.config_storage.set_headers(self.config.get('access_token'))
 
+    @check_connection
     def get_new_token(self):
         """
         Get new token using refresh token.
         """
-        try:
-            client_auth = requests.auth.HTTPBasicAuth(self.config_storage.CLIENT_ID, "")
-        except (KeyboardInterrupt, SystemExit):
-            raise
-        except:
-            return False
-
+        client_auth = requests.auth.HTTPBasicAuth(self.config_storage.CLIENT_ID, "")
         response = requests.post(
             'https://www.reddit.com/api/v1/access_token',
             auth=client_auth,
@@ -53,6 +49,7 @@ class API(object):
         self.config_storage.set_key('access_token', token)
         self.headers = self.config_storage.set_headers(token)
 
+    @check_connection
     def get_user_info(self):
         """
         Get current user info.
@@ -60,30 +57,20 @@ class API(object):
         if self.check_token():
             self.get_new_token()
 
-        try:
-            response = requests.get('https://oauth.reddit.com/api/v1/me', headers=self.headers)
-        except (KeyboardInterrupt, SystemExit):
-            raise
-        except:
-            return False
-
+        response = requests.get('https://oauth.reddit.com/api/v1/me', headers=self.headers)
         return response.json()
 
+    @check_connection
     def get_last_message(self):
         """
         Get contents of the last unread message.
         Should run only if notifications setting is 1.
         """
-        try:
-            response = requests.get(
-                'https://oauth.reddit.com/message/unread',
-                headers=self.headers,
-                params={'limit': 1}
-            )
-        except (KeyboardInterrupt, SystemExit):
-            raise
-        except:
-            return False
+        response = requests.get(
+            'https://oauth.reddit.com/message/unread',
+            headers=self.headers,
+            params={'limit': 1}
+        )
 
         post_data = response.json()['data']['children'][0]['data']
 

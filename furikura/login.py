@@ -4,7 +4,7 @@ import requests.auth
 from urllib.parse import urlencode
 from flask import Flask, abort, request
 
-from . import utils
+from .utils import get_file
 from .config import Config
 
 config_storage = Config()
@@ -14,7 +14,7 @@ app = Flask(__name__)
 @app.route('/')
 def homepage():
     try:
-        with open(utils.get_file('furikura/ui/login/login.html')) as html:
+        with open(get_file('furikura/ui/login/login.html')) as html:
             login_html = html.read()
     except IOError:
         login_html = '<a href="%s">Authenticate with reddit</a>'
@@ -38,7 +38,7 @@ def reddit_callback():
     config_storage.set_key('token_expires', time.time() + 3600)
 
     try:
-        with open(utils.get_file('furikura/ui/login/success.html')) as html:
+        with open(get_file('furikura/ui/login/success.html')) as html:
             success_html = html.read()
     except IOError:
         success_html = 'You have successfully logged in'

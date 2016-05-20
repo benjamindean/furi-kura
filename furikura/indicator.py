@@ -1,8 +1,9 @@
 import gi
 import webbrowser
 
-from . import utils
 from .api import API
+from .utils import get_file
+from .utils import debug
 
 gi.require_version('Gtk', '3.0')
 gi.require_version('AppIndicator3', '0.1')
@@ -18,8 +19,8 @@ class FuriKuraIndicator(object):
     # Init appindicator
     APPINDICATOR_ID = 'furikura_indicator'
     ICONS = {
-        'active': utils.get_file('furikura/icons/furi-active.png'),
-        'attention': utils.get_file('furikura/icons/furi-attention.png')
+        'active': get_file('furikura/icons/furi-active.png'),
+        'attention': get_file('furikura/icons/furi-attention.png')
     }
     INDICATOR = AppIndicator3.Indicator.new(
         APPINDICATOR_ID,
@@ -27,8 +28,8 @@ class FuriKuraIndicator(object):
         AppIndicator3.IndicatorCategory.COMMUNICATIONS
     )
 
+    @debug
     def __init__(self, config_storage):
-        print("Init Indicator")
 
         # Throwing config class here
         self.config_storage = config_storage
@@ -56,7 +57,7 @@ class FuriKuraIndicator(object):
         }
 
         # Init karma view
-        self.karma = None
+        self.karma = '0 | 0'
 
         self.init_appindicator()
 
@@ -64,9 +65,9 @@ class FuriKuraIndicator(object):
         self.INDICATOR.set_status(AppIndicator3.IndicatorStatus.ACTIVE)
         self.INDICATOR.set_attention_icon(self.ICONS['attention'])
 
+    @debug
     def update_reddit_data(self):
         self.update_appindicator(self.request.get_user_info())
-        print("Updated")
         return True
 
     """
@@ -161,7 +162,7 @@ class FuriKuraIndicator(object):
             'quit': self.quit
         }
 
-        self.builder.add_from_file(utils.get_file('furikura/ui/menu.xml'))
+        self.builder.add_from_file(get_file('furikura/ui/menu.xml'))
         self.builder.connect_signals(signals)
 
         menu = self.builder.get_object('furikura_menu')
