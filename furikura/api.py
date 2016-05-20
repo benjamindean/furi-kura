@@ -16,7 +16,9 @@ class API(object):
         """
         try:
             client_auth = requests.auth.HTTPBasicAuth(self.config_storage.CLIENT_ID, "")
-        except requests.exceptions.ConnectionError:
+        except (KeyboardInterrupt, SystemExit):
+            raise
+        except:
             return False
 
         response = requests.post(
@@ -60,7 +62,9 @@ class API(object):
 
         try:
             response = requests.get('https://oauth.reddit.com/api/v1/me', headers=self.headers)
-        except requests.exceptions.ConnectionError:
+        except (KeyboardInterrupt, SystemExit):
+            raise
+        except:
             return False
 
         return response.json()
@@ -70,11 +74,17 @@ class API(object):
         Get contents of the last unread message.
         Should run only if notifications setting is 1.
         """
-        response = requests.get(
-            'https://oauth.reddit.com/message/unread',
-            headers=self.headers,
-            params={'limit': 1}
-        )
+        try:
+            response = requests.get(
+                'https://oauth.reddit.com/message/unread',
+                headers=self.headers,
+                params={'limit': 1}
+            )
+        except (KeyboardInterrupt, SystemExit):
+            raise
+        except:
+            return False
+
         post_data = response.json()['data']['children'][0]['data']
 
         return {
