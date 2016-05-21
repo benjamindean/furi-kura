@@ -1,11 +1,12 @@
 import time
+from urllib.parse import urlencode
+
 import requests
 import requests.auth
-from urllib.parse import urlencode
 from flask import Flask, abort, request
 
-from .utils import get_file
 from .config import Config
+from .utils import get_file
 
 config_storage = Config()
 app = Flask(__name__)
@@ -52,6 +53,7 @@ def reddit_callback():
     shutdown_server()
     return success_html
 
+
 def make_authorization_url():
     from uuid import uuid4
     state = str(uuid4())
@@ -64,6 +66,7 @@ def make_authorization_url():
               'scope': 'identity,privatemessages'}
     url = 'https://www.reddit.com/api/v1/authorize?' + urlencode(params)
     return url
+
 
 def get_token(code):
     client_auth = requests.auth.HTTPBasicAuth(config_storage.CLIENT_ID, "")
@@ -78,17 +81,21 @@ def get_token(code):
     )
     return response.json()
 
+
 def shutdown_server():
     func = request.environ.get('werkzeug.server.shutdown')
     if func is None:
         raise RuntimeError('Not running with the Werkzeug Server')
     func()
 
+
 def save_created_state(state):
     pass
 
+
 def is_valid_state(state):
     return True
+
 
 def run(*args):
     app.run(debug=False, port=65010)

@@ -1,11 +1,13 @@
-from os.path import abspath
-from os.path import isfile
+import os
+import sys
 from functools import wraps
 
+
 def get_file(path):
-    project_path = abspath(path)
+    project_path = os.path.abspath(path)
     user_path = "/usr/share/%s" % path
-    return project_path if isfile(project_path) else user_path
+    return project_path if os.path.isfile(project_path) else user_path
+
 
 def check_connection(func):
     @wraps(func)
@@ -19,6 +21,7 @@ def check_connection(func):
 
     return wrapper
 
+
 def debug(func):
     @wraps(func)
     def wrapper(self, *args, **kwargs):
@@ -30,4 +33,21 @@ def debug(func):
             style.format('ARGS:'), *args, **kwargs
         )
         return result
+
     return wrapper
+
+
+def check_lock():
+    lockfile = os.path.expanduser('~/.config/furikura/furikura.lock')
+
+    if os.path.isfile(lockfile):
+        with open(lockfile, "r") as pidfile:
+            if os.path.exists("/proc/%s" % pidfile.readline()):
+                sys.exit(1)
+            else:
+                os.remove(lockfile)
+    else:
+        os.makedirs(os.path.dirname(lockfile), exist_ok=True)
+
+    with open(lockfile, "w") as lockfile:
+        lockfile.write("%s" % os.getpid())

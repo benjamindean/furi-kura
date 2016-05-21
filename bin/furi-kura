@@ -1,13 +1,11 @@
 #!/usr/bin/python3
 
-import sys
-from os.path import abspath, dirname, join
-
 try:
-    import furikura
+    from furikura.furikura import FuriKura
 except ImportError:
+    import sys
+    from os.path import abspath, dirname, join
     sys.path.append(abspath(join(dirname(__file__), '..')))
-
-from furikura.furikura import FuriKura
+    from furikura.furikura import FuriKura
 
 FuriKura()

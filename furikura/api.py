@@ -1,7 +1,7 @@
 import time
 import requests.auth
+
 from .utils import check_connection
-from .utils import debug
 
 
 class API(object):

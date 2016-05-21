@@ -1,6 +1,5 @@
 import json
 import os.path
-from .utils import debug
 
 
 class Config(object):

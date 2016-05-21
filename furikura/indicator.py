@@ -3,7 +3,6 @@ import webbrowser
 
 from .api import API
 from .utils import get_file
-from .utils import debug
 
 gi.require_version('Gtk', '3.0')
 gi.require_version('AppIndicator3', '0.1')
@@ -73,7 +72,8 @@ class FuriKuraIndicator(object):
     """
 
     def update_appindicator(self, reddit_data):
-        if not reddit_data: return
+        if not reddit_data:
+            return
         self.set_inbox(reddit_data['inbox_count'])
         self.mail_notify(reddit_data['inbox_count'])
         self.set_karma(reddit_data['link_karma'], reddit_data['comment_karma'])
@@ -95,7 +95,8 @@ class FuriKuraIndicator(object):
     """
 
     def __compare_karma(self, karma_view, karma):
-        if not self.local_data[karma_view]: return
+        if not self.local_data[karma_view]:
+            return
         if self.local_data[karma_view] > karma:
             return '\u2193'
         elif self.local_data[karma_view] < karma:
@@ -112,8 +113,10 @@ class FuriKuraIndicator(object):
 
     def update_karma_view(self):
         view = self.config['karma_view']
-        if view == 'icon': self.INDICATOR.set_label(self.karma, 'karma_label')
-        else: self.builder.get_object('karma').set_label("Karma: %s" % self.karma)
+        if view == 'icon':
+            self.INDICATOR.set_label(self.karma, 'karma_label')
+        else:
+            self.builder.get_object('karma').set_label("Karma: %s" % self.karma)
 
     def toggle_karma_view(self, widget):
         view = str(widget.get_name())
@@ -209,14 +212,16 @@ class FuriKuraIndicator(object):
         somewhere else (browser, phone app, etc).
         """
         local_inbox_count = self.local_data.get('inbox_count')
-        if inbox_count == local_inbox_count: return
+        if inbox_count == local_inbox_count:
+            return
         elif inbox_count < local_inbox_count:
             self.INDICATOR.set_status(AppIndicator3.IndicatorStatus.ACTIVE)
             return
 
         self.INDICATOR.set_status(AppIndicator3.IndicatorStatus.ATTENTION)
 
-        if not self.config.get('notifications'): return
+        if not self.config.get('notifications'):
+            return
 
         if not self.services['notification']:
             self.services['notification'] = Notify.init(self.APPINDICATOR_ID)
