@@ -6,7 +6,6 @@ class Config(object):
     """
     Create, update and store applications config.
     """
-
     CONFIG_FILE = os.path.expanduser('~/.config/furikura/furikura')
     CLIENT_ID = 'RQftQ0QKd9ZCDA'
     LOGIN_URI = 'http://localhost:65010'

@@ -60,10 +60,12 @@ class FuriKuraIndicator(object):
         self.init_appindicator()
 
     def init_appindicator(self):
+        """ Set initial status and attention icon. """
         self.INDICATOR.set_status(AppIndicator3.IndicatorStatus.ACTIVE)
         self.INDICATOR.set_attention_icon(self.ICONS['attention'])
 
     def update_reddit_data(self):
+        """ Update indicator with new data. """
         self.update_appindicator(self.request.get_user_info())
         return True
 
@@ -72,6 +74,10 @@ class FuriKuraIndicator(object):
     """
 
     def update_appindicator(self, reddit_data):
+        """
+        Set all MenuItems to the new values
+        and update local copy.
+        """
         if not reddit_data:
             return
         self.set_inbox(reddit_data.get('inbox_count', 0))
@@ -80,10 +86,18 @@ class FuriKuraIndicator(object):
         self.local_data = reddit_data
 
     def run_background(self, interval=1):
+        """
+        Convert minute interval to seconds
+        and updated services with new timeout.
+        """
         timeout = interval * 60 * 1000
         self.services['timeout'] = GObject.timeout_add(timeout, self.update_reddit_data)
 
     def set_refresh_interval(self, widget):
+        """
+        Set new refresh interval and remove existing
+        timeout if already exist.
+        """
         interval = int(widget.get_name())
         if interval != self.config.get('refresh_interval'):
             GObject.source_remove(self.services['timeout'])
@@ -95,6 +109,10 @@ class FuriKuraIndicator(object):
     """
 
     def __compare_karma(self, karma_view, karma):
+        """
+        Return UP or DOWN arrow
+        depending on new karma value.
+        """
         if not self.local_data[karma_view]:
             return
         if self.local_data[karma_view] > karma:
@@ -103,6 +121,9 @@ class FuriKuraIndicator(object):
             return '\u2191'
 
     def set_karma(self, link_karma, comment_karma):
+        """
+        Format Karma string with new values.
+        """
         self.karma = "{link_arrow}{link} | {comment_arrow}{post}".format(
             link=link_karma,
             post=comment_karma,
@@ -118,6 +139,10 @@ class FuriKuraIndicator(object):
             self.builder.get_object('karma').set_label("Karma: %s" % self.karma)
 
     def toggle_karma_view(self, widget):
+        """
+        Show Karma next to the icon or in menu.
+        Doesn't work on some DEs.
+        """
         view = str(widget.get_name())
 
         if view != self.config['karma_view']:
