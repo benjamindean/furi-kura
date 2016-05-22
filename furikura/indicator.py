@@ -74,9 +74,9 @@ class FuriKuraIndicator(object):
     def update_appindicator(self, reddit_data):
         if not reddit_data:
             return
-        self.set_inbox(reddit_data['inbox_count'])
-        self.mail_notify(reddit_data['inbox_count'])
-        self.set_karma(reddit_data['link_karma'], reddit_data['comment_karma'])
+        self.set_inbox(reddit_data.get('inbox_count', 0))
+        self.mail_notify(reddit_data.get('inbox_count', 0))
+        self.set_karma(reddit_data.get('link_karma'), reddit_data.get('comment_karma'))
         self.local_data = reddit_data
 
     def run_background(self, interval=1):
@@ -112,8 +112,7 @@ class FuriKuraIndicator(object):
         self.update_karma_view()
 
     def update_karma_view(self):
-        view = self.config['karma_view']
-        if view == 'icon':
+        if self.config['karma_view'] == 'icon':
             self.INDICATOR.set_label(self.karma, 'karma_label')
         else:
             self.builder.get_object('karma').set_label("Karma: %s" % self.karma)
