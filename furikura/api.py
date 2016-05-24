@@ -39,9 +39,11 @@ class API(object):
 
     def check_token(self):
         """
-        Check if current token expired.
+        Check if current token expired
+        and get new one if it is.
         """
-        return time.time() >= self.token_expires
+        if time.time() >= self.token_expires:
+            self.get_new_token()
 
     def set_token(self, token):
         """
@@ -55,9 +57,7 @@ class API(object):
         """
         Get current user info.
         """
-        if self.check_token():
-            self.get_new_token()
-
+        self.check_token()
         response = requests.get('https://oauth.reddit.com/api/v1/me', headers=self.headers)
         return response.json()
 
