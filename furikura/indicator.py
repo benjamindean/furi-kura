@@ -124,6 +124,8 @@ class FuriKuraIndicator(object):
         """
         Format Karma string with new values.
         """
+        if link_karma is None or comment_karma is None:
+            return
         self.karma = "{link_arrow}{link} | {comment_arrow}{post}".format(
             link=link_karma,
             post=comment_karma,
