@@ -158,7 +158,19 @@
                                 </child>
                             </object>
                         </child>
-
+                        <child>
+                            <object class="GtkSeparatorMenuItem">
+                                <property name="visible">True</property>
+                            </object>
+                        </child>
+                        <child>
+                            <object class="GtkCheckMenuItem" id="autostart">
+                                <property name="label">Autostart</property>
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <signal name="activate" handler="autostart_handler" swapped="no"/>
+                            </object>
+                        </child>
                     </object>
                 </child>
             </object>

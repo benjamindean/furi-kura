@@ -51,3 +51,20 @@ def check_lock():
 
     with open(lockfile, "w") as lockfile:
         lockfile.write("%s" % os.getpid())
+
+def autostart(action):
+    """
+    Symlink desktop file to ~/.config/autostart
+    """
+    autostart = os.path.expanduser('~/.config/autostart/furikura.desktop')
+    desktop_file = '/usr/share/applications/furikura.desktop'
+    is_enabled = os.path.isfile(autostart)
+
+    if not os.path.isfile(desktop_file):
+        return
+
+    if action is 'add' and not is_enabled:
+        os.symlink(desktop_file, autostart)
+    elif action is 'remove' and is_enabled:
+        os.remove(autostart)
+

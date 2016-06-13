@@ -2,7 +2,7 @@ import gi
 import webbrowser
 
 from .api import API
-from .utils import get_file
+from .utils import get_file, autostart
 
 gi.require_version('Gtk', '3.0')
 gi.require_version('AppIndicator3', '0.1')
@@ -177,6 +177,15 @@ class FuriKuraIndicator(object):
             self.config_storage.set_key('notifications', notifications)
 
     """
+    Autostart
+    """
+
+    def autostart_handler(self, widget):
+        active = widget.get_active()
+        self.config_storage.set_key('autostart', active)
+        autostart('add') if active else autostart('remove')
+
+    """
     Menu handlers.
     """
 
@@ -187,6 +196,7 @@ class FuriKuraIndicator(object):
             'karma_handler': self.toggle_karma_view,
             'refresh_handler': self.set_refresh_interval,
             'notifications_handler': self.notifications_handler,
+            'autostart_handler': self.autostart_handler,
             'quit': self.quit
         }
 
@@ -202,6 +212,7 @@ class FuriKuraIndicator(object):
         self.set_radio('refresh_interval')
         self.set_radio('karma_view')
         self.set_radio('notifications')
+        self.set_checkbox('autostart')
 
         self.INDICATOR.set_menu(menu)
 
@@ -230,6 +241,10 @@ class FuriKuraIndicator(object):
         for child in view:
             if str(child.get_name()) == str(self.config.get(item_id)):
                 child.set_active("True")
+
+    def set_checkbox(self, item_id):
+        checkbox = self.builder.get_object(item_id)
+        checkbox.set_active(self.config.get(item_id) or False)
 
     def mail_notify(self, inbox_count):
         """
