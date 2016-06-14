@@ -9,3 +9,4 @@ Icon=/usr/share/furikura/icons/furi-kura.png
 Terminal=false
 StartupNotify=false
 Categories=Utility
+X-GNOME-UsesNotifications=true
