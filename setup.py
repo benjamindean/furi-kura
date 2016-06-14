@@ -19,7 +19,9 @@ setup(
         ('/usr/share/furikura/icons/', ['furikura/icons/furi-active.png']),
         ('/usr/share/furikura/icons/', ['furikura/icons/furi-kura.png']),
         ('/usr/share/furikura/icons/', ['furikura/icons/furi-attention.png']),
+        ('/usr/share/furikura/icons/', ['furikura/icons/furi-kura-logo.png']),
         ('/usr/share/furikura/ui/', ['furikura/ui/menu.xml']),
+        ('/usr/share/furikura/ui/', ['furikura/ui/about.xml']),
         ('/usr/share/furikura/ui/login/', ['furikura/ui/login/login.html']),
         ('/usr/share/furikura/ui/login/', ['furikura/ui/login/success.html'])
     ]

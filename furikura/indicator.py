@@ -12,6 +12,7 @@ from gi.repository import Gtk
 from gi.repository import AppIndicator3
 from gi.repository import Notify
 from gi.repository import GObject
+from gi.repository import GdkPixbuf
 
 
 class FuriKuraIndicator(object):
@@ -185,6 +186,16 @@ class FuriKuraIndicator(object):
         self.config_storage.set_key('autostart', active)
         autostart('add') if active else autostart('remove')
 
+    def force_refresh_handler(self, widget):
+        self.update_reddit_data()
+
+    def about_handler(self, widget):
+        self.builder.add_from_file(get_file('furikura/ui/about.xml'))
+        about = self.builder.get_object('furi_kura_about')
+        about.set_logo(GdkPixbuf.Pixbuf.new_from_file(get_file('furikura/icons/furi-kura-logo.png')))
+        about.connect("response", lambda d, r: d.destroy())
+        about.show()
+
     """
     Menu handlers.
     """
@@ -197,6 +208,8 @@ class FuriKuraIndicator(object):
             'refresh_handler': self.set_refresh_interval,
             'notifications_handler': self.notifications_handler,
             'autostart_handler': self.autostart_handler,
+            'force_refresh_handler': self.force_refresh_handler,
+            'about': self.about_handler,
             'quit': self.quit
         }
 

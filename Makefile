@@ -19,7 +19,7 @@ rpm:
 	python3 setup.py bdist_rpm
 
 version:
-	sed -i 's/$(VERSION)/$(V)/g' setup.py Makefile README.md furikura/config.py
+	sed -i 's/$(VERSION)/$(V)/g' setup.py Makefile README.md furikura/config.py furikura/ui/about.xml
 	git add -A && git commit -m "Prepare $(V) release"
 
 install:

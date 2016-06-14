@@ -24,6 +24,15 @@
             </object>
         </child>
         <child>
+            <object class="GtkMenuItem" id="force_refresh">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="use_action_appearance">False</property>
+                <property name="label" translatable="yes">Force Refresh</property>
+                <signal name="activate" handler="force_refresh_handler" swapped="no"/>
+            </object>
+        </child>
+        <child>
             <object class="GtkSeparatorMenuItem">
                 <property name="visible">True</property>
             </object>
@@ -178,6 +187,15 @@
         <child>
             <object class="GtkSeparatorMenuItem">
                 <property name="visible">True</property>
+            </object>
+        </child>
+        <child>
+            <object class="GtkMenuItem">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="use_action_appearance">False</property>
+                <property name="label" translatable="yes">About</property>
+                <signal name="activate" handler="about" swapped="no"/>
             </object>
         </child>
         <child>
