@@ -17,9 +17,9 @@ from gi.repository import GdkPixbuf
 
 
 if os.environ.get('DESKTOP_SESSION') == 'ubuntu':
-    from .env import unity as desktop
+    from .desktop import unity as desktop
 else:
-    from .env import default as desktop
+    from .desktop import default as desktop
 
 class FuriKuraIndicator(object):
     # Init appindicator
