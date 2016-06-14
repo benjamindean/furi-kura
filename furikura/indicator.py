@@ -1,4 +1,5 @@
 import gi
+import os
 import webbrowser
 
 from .api import API
@@ -14,6 +15,11 @@ from gi.repository import Notify
 from gi.repository import GObject
 from gi.repository import GdkPixbuf
 
+
+if os.environ.get('DESKTOP_SESSION') == 'ubuntu':
+    from .env import unity as desktop
+else:
+    from .env import default as desktop
 
 class FuriKuraIndicator(object):
     # Init appindicator
@@ -165,6 +171,7 @@ class FuriKuraIndicator(object):
 
     def set_inbox(self, count):
         self.builder.get_object('inbox').set_label("Inbox: %s" % count)
+        desktop.update_counter(count)
 
     def open_inbox(self, widget):
         self.INDICATOR.set_status(AppIndicator3.IndicatorStatus.ACTIVE)
