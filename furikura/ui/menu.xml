@@ -24,6 +24,11 @@
             </object>
         </child>
         <child>
+            <object class="GtkSeparatorMenuItem">
+                <property name="visible">True</property>
+            </object>
+        </child>
+        <child>
             <object class="GtkMenuItem" id="force_refresh">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
