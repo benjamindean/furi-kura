@@ -15,18 +15,19 @@ from gi.repository import Notify
 from gi.repository import GObject
 from gi.repository import GdkPixbuf
 
-
 if os.environ.get('DESKTOP_SESSION') == 'ubuntu':
     from .desktop import unity as desktop
 else:
     from .desktop import default as desktop
 
+
 class FuriKuraIndicator(object):
     # Init appindicator
     APPINDICATOR_ID = 'furikura_indicator'
+    THEME = 'light'
     ICONS = {
-        'active': get_file('furikura/icons/furi-active.png'),
-        'attention': get_file('furikura/icons/furi-attention.png')
+        'active': get_file('furikura/icons/%s/furi-active.png' % THEME),
+        'attention': get_file('furikura/icons/%s/furi-attention.png' % THEME)
     }
     INDICATOR = AppIndicator3.Indicator.new(
         APPINDICATOR_ID,

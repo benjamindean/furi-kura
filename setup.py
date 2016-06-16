@@ -1,4 +1,6 @@
 from distutils.core import setup
+import glob
+
 
 setup(
     name='furi-kura',
@@ -16,13 +18,10 @@ setup(
     description='Furi Kura for reddit',
     data_files=[
         ('/usr/share/applications/', ['furikura.desktop']),
-        ('/usr/share/furikura/icons/', ['furikura/icons/furi-active.png']),
-        ('/usr/share/furikura/icons/', ['furikura/icons/furi-kura.png']),
-        ('/usr/share/furikura/icons/', ['furikura/icons/furi-attention.png']),
-        ('/usr/share/furikura/icons/', ['furikura/icons/furi-kura-logo.png']),
-        ('/usr/share/furikura/ui/', ['furikura/ui/menu.xml']),
-        ('/usr/share/furikura/ui/', ['furikura/ui/about.xml']),
-        ('/usr/share/furikura/ui/login/', ['furikura/ui/login/login.html']),
-        ('/usr/share/furikura/ui/login/', ['furikura/ui/login/success.html'])
+        ('/usr/share/furikura/icons/', glob.glob("furikura/icons/*.png")),
+        ('/usr/share/furikura/icons/light/', glob.glob("furikura/icons/light/*.png")),
+        ('/usr/share/furikura/icons/dark/', glob.glob("furikura/icons/dark/*.png")),
+        ('/usr/share/furikura/ui/', glob.glob("furikura/ui/*.xml")),
+        ('/usr/share/furikura/ui/login/', glob.glob("furikura/ui/login/*.html")),
     ]
 )
