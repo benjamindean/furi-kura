@@ -1,7 +1,6 @@
 import glob
 from distutils.core import setup
 
-
 setup(
     name='furi-kura',
     version='0.0.6',
