@@ -1,5 +1,5 @@
-from distutils.core import setup
 import glob
+from distutils.core import setup
 
 
 setup(
