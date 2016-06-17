@@ -90,7 +90,7 @@ class FuriKuraIndicator(object):
             return
         self.set_inbox(reddit_data.get('inbox_count', 0))
         self.mail_notify(reddit_data.get('inbox_count', 0))
-        self.set_karma(reddit_data.get('link_karma'), reddit_data.get('comment_karma'))
+        self.set_karma(reddit_data.get('link_karma', 0), reddit_data.get('comment_karma', 0))
         self.local_data = reddit_data
 
     def run_background(self, interval=1):
@@ -265,7 +265,7 @@ class FuriKuraIndicator(object):
 
     def set_checkbox(self, item_id):
         checkbox = self.builder.get_object(item_id)
-        checkbox.set_active(self.config.get(item_id) or False)
+        checkbox.set_active(self.config.get(item_id, False))
 
     def mail_notify(self, inbox_count):
         """
@@ -273,7 +273,9 @@ class FuriKuraIndicator(object):
         If new inbox_count is smaller - user read the message
         somewhere else (browser, phone app, etc).
         """
-        local_inbox_count = self.local_data.get('inbox_count')
+        notification_config = self.config.get('notifications')
+        local_inbox_count = self.local_data.get('inbox_count', 0)
+
         if inbox_count == local_inbox_count:
             return
         elif inbox_count < local_inbox_count:
@@ -282,13 +284,13 @@ class FuriKuraIndicator(object):
 
         self.INDICATOR.set_status(AppIndicator3.IndicatorStatus.ATTENTION)
 
-        if not self.config.get('notifications'):
+        if not notification_config:
             return
 
         if not self.services['notification']:
             self.services['notification'] = Notify.init(self.APPINDICATOR_ID)
 
-        if self.config.get('notifications') == 1:
+        if notification_config == 1:
             message_data = self.request.get_last_message()
             header = "reddit mail from <b>{author}</b>".format(author=message_data['author'])
             body = message_data['body']
