@@ -16,6 +16,7 @@ def update_counter(count):
         timer = Timer(3, launcher.set_property, ['urgent', False])
         timer.start()
 
+
 def add_quicklist_item(item):
     quick_list = Dbusmenu.Menuitem.new()
     list_item = Dbusmenu.Menuitem.new()
