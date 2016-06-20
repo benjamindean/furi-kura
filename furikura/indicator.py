@@ -27,7 +27,8 @@ class FuriKuraIndicator(object):
     THEME = get_theme()
     ICONS = {
         'active': get_file('furikura/icons/%s/furi-active.png' % THEME),
-        'attention': get_file('furikura/icons/%s/furi-attention.png' % THEME)
+        'attention': get_file('furikura/icons/%s/furi-attention.png' % THEME),
+        'main': get_file('furikura/icons/furi-kura.png')
     }
     INDICATOR = AppIndicator3.Indicator.new(
         APPINDICATOR_ID,
@@ -301,7 +302,7 @@ class FuriKuraIndicator(object):
         Notify.Notification.new(
             header,
             body,
-            self.ICONS['active']
+            self.ICONS['main']
         ).show()
 
     def main_loop(self):
