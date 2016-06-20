@@ -3,7 +3,7 @@ import os
 import webbrowser
 
 from .api import API
-from .utils import get_file, autostart
+from .utils import get_file, get_theme, autostart
 
 gi.require_version('Gtk', '3.0')
 gi.require_version('AppIndicator3', '0.1')
@@ -24,7 +24,7 @@ else:
 class FuriKuraIndicator(object):
     # Init appindicator
     APPINDICATOR_ID = 'furikura_indicator'
-    THEME = 'light'
+    THEME = get_theme()
     ICONS = {
         'active': get_file('furikura/icons/%s/furi-active.png' % THEME),
         'attention': get_file('furikura/icons/%s/furi-attention.png' % THEME)
