@@ -3,7 +3,7 @@ from distutils.core import setup
 
 setup(
     name='furi-kura',
-    version='0.0.6',
+    version='0.0.7',
     packages=['furikura', 'furikura/desktop'],
     install_requires=[
         'Flask',

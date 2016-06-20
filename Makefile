@@ -1,6 +1,6 @@
 all: clean run
 
-VERSION=0.0.6
+VERSION=0.0.7
 
 clean:
 	find furikura -type f -name *.pyc | xargs rm -rf
@@ -26,5 +26,5 @@ install:
 	python3 setup.py install --record uninstall.txt
 
 uninstall:
-	cat uninstall.txt | sudo xargs rm -rf
-	sudo rm uninstall.txt
+	cat uninstall.txt | xargs rm -rf
+	rm uninstall.txt

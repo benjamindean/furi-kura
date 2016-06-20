@@ -10,7 +10,7 @@
         <property name="gravity">center</property>
         <property name="copyright">by Benjamin Dean</property>
         <property name="program_name">Furi Kura</property>
-        <property name="version">0.0.6</property>
+        <property name="version">0.0.7</property>
         <property name="comments">Linux appindicator for reddit</property>
         <property name="website">https://github.com/benjamindean/furi-kura</property>
         <property name="website_label">GitHub</property>
