@@ -41,7 +41,7 @@ sudo apt-get install -f
 
 ```
 wget https://github.com/benjamindean/furi-kura/archive/v0.0.7-beta.zip
-unzip v0.0.7-beta.zip && cd v0.0.7-beta
+unzip v0.0.7-beta.zip && cd furi-kura-0.0.7-beta
 sudo make install
 ```
 
