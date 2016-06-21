@@ -62,6 +62,29 @@ class API(object):
         return response.json()
 
     @check_connection
+    def get_subreddit(self, subreddit):
+        """
+        Get subreddit info.
+        """
+        self.check_token()
+        list = []
+        response = requests.get(
+            'https://oauth.reddit.com/r/%s/new' % subreddit,
+            headers=self.headers,
+            params={'limit': 5}
+        )
+        posts = response.json()['data']['children']
+
+        for post in posts:
+            list.append({
+                'link': post['data']['url'],
+                'title': post['data']['title'],
+                'upvotes': post['data']['ups']
+            })
+
+        print(list)
+
+    @check_connection
     def get_last_message(self):
         """
         Get contents of the last unread message.

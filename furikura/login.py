@@ -63,7 +63,7 @@ def make_authorization_url():
               'state': state,
               'redirect_uri': config_storage.REDIRECT_URI,
               'duration': 'permanent',
-              'scope': 'identity,privatemessages'}
+              'scope': 'identity,privatemessages,read'}
     url = 'https://www.reddit.com/api/v1/authorize?' + urlencode(params)
     return url
 
