@@ -82,7 +82,7 @@ class API(object):
                 'upvotes': post['data']['ups']
             })
 
-        print(list)
+        return list
 
     @check_connection
     def get_last_message(self):

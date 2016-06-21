@@ -305,6 +305,40 @@ class FuriKuraIndicator(object):
             self.ICONS['main']
         ).show()
 
+    """
+    Subreddit
+    """
+
+    def subreddit_updates(self):
+        # Get subreddit name from config
+        subreddit = self.config.get('subreddit')
+
+        # Exit if not specified
+        if not subreddit:
+            return
+
+        # Get last posts
+        data = self.request.get_subreddit(subreddit)
+
+        # Where to append
+        end = self.builder.get_object('furikura_menu')
+
+        # Add separator
+        separator = Gtk.SeparatorMenuItem()
+        end.append(separator)
+        separator.show()
+
+        def __open_url(widget, url):
+            webbrowser.open(url, new=1, autoraise=True)
+
+        # Iterate through last posts and append them to the menu
+        for post in data:
+            title = post['title'][:25] + (post['title'][25:] and '...')
+            item = Gtk.MenuItem('%s | %s' % (post['upvotes'], title))
+            item.connect('activate', __open_url, post['link'])
+            end.append(item)
+            item.show()
+
     def main_loop(self):
         Gtk.main()
 
