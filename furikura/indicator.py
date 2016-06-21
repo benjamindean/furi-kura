@@ -210,6 +210,7 @@ class FuriKuraIndicator(object):
     """
 
     def build_menu(self):
+        self.INDICATOR.set_menu(Gtk.Menu())
         reddit_data = self.request.get_user_info()
         signals = {
             'inbox_handler': self.open_inbox,
@@ -226,7 +227,7 @@ class FuriKuraIndicator(object):
         self.builder.connect_signals(signals)
 
         menu = self.builder.get_object('furikura_menu')
-        menu.show_all()
+        menu.show()
 
         self.update_appindicator(reddit_data)
         self.run_background(self.config.get('refresh_interval'))
