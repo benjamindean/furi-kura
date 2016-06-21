@@ -20,7 +20,27 @@ rpm:
 
 version:
 	sed -i 's/$(VERSION)/$(V)/g' setup.py Makefile README.md furikura/config.py furikura/ui/about.xml
-	git add -A && git commit -m "Prepare $(V) release"
+	git add -A && git commit -m "Prepare $(V) release" && git push
+
+release: deb
+	git tag v$(VERSION) && git push --tags
+	github-release release \
+	--user benjamindean \
+	--repo furi-kura \
+	--tag v$(VERSION) \
+	--name $(VERSION)
+	github-release upload \
+	--user benjamindean \
+	--repo furi-kura \
+	--tag v$(VERSION) \
+	--name furi-kura-$(VERSION).tar.gz \
+	--file furi-kura-$(VERSION).tar.gz
+	github-release upload \
+	--user benjamindean \
+	--repo furi-kura \
+	--tag v$(VERSION) \
+	--name furi-kura_$(VERSION)-1_all.deb \
+	--file deb_dist/furi-kura_$(VERSION)-1_all.deb
 
 install:
 	python3 setup.py install --record uninstall.txt
