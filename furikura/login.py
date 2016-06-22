@@ -22,7 +22,6 @@ def homepage():
 
     return login_html % make_authorization_url()
 
-
 @app.route('/reddit_callback')
 def reddit_callback():
     error = request.args.get('error', '')
@@ -53,7 +52,6 @@ def reddit_callback():
     shutdown_server()
     return success_html
 
-
 def make_authorization_url():
     from uuid import uuid4
     state = str(uuid4())
@@ -66,7 +64,6 @@ def make_authorization_url():
               'scope': 'identity,privatemessages,read'}
     url = 'https://www.reddit.com/api/v1/authorize?' + urlencode(params)
     return url
-
 
 def get_token(code):
     client_auth = requests.auth.HTTPBasicAuth(config_storage.CLIENT_ID, "")
@@ -81,21 +78,17 @@ def get_token(code):
     )
     return response.json()
 
-
 def shutdown_server():
     func = request.environ.get('werkzeug.server.shutdown')
     if func is None:
         raise RuntimeError('Not running with the Werkzeug Server')
     func()
 
-
 def save_created_state(state):
     pass
 
-
 def is_valid_state(state):
     return True
-
 
 def run(*args):
     app.run(debug=False, port=65010)

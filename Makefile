@@ -3,8 +3,8 @@ all: clean run
 VERSION=0.0.7
 
 clean:
-	find furikura -type f -name *.pyc | xargs rm -rf
-	find . -type f -name *.tar.gz | xargs rm -rf
+	find furikura -type f -name "*.pyc" | xargs rm -rf
+	find . -type f -name "*.tar.gz" | xargs rm -rf
 	find furikura -type d -name __pycache__ | xargs rm -rf
 	rm -rf build/ dist/ deb_dist/ MANIFEST
 

@@ -1,10 +1,11 @@
 import gi
+
 gi.require_version('Gdk', '3.0')
 
 import os
 import sys
 from functools import wraps
-from gi.repository import Gdk as gdk
+from gi.repository import Gdk
 
 
 def get_file(path):
@@ -61,17 +62,17 @@ def autostart(action):
     """
     Symlink desktop file to ~/.config/autostart
     """
-    autostart = os.path.expanduser('~/.config/autostart/furikura.desktop')
+    autostart_file = os.path.expanduser('~/.config/autostart/furikura.desktop')
     desktop_file = '/usr/share/applications/furikura.desktop'
-    is_enabled = os.path.isfile(autostart)
+    is_enabled = os.path.isfile(autostart_file)
 
     if not os.path.isfile(desktop_file):
         return
 
     if action is 'add' and not is_enabled:
-        os.symlink(desktop_file, autostart)
+        os.symlink(desktop_file, autostart_file)
     elif action is 'remove' and is_enabled:
-        os.remove(autostart)
+        os.remove(autostart_file)
 
 
 """
@@ -89,10 +90,10 @@ def __luminance(r, g, b, base=256):
 
 def __pixel_at(x, y):
     """Returns (r, g, b) color code for a pixel with given coordinates (each value is in 0..256 limits)"""
-    root_window = gdk.get_default_root_window()
-    buf = gdk.pixbuf_get_from_window(root_window, x, y, 1, 1)
+    root_window = Gdk.get_default_root_window()
+    buf = Gdk.pixbuf_get_from_window(root_window, x, y, 1, 1)
     pixels = buf.get_pixels()
-    if type(pixels) == type(""):
+    if isinstance(pixels, str):
         rgb = tuple([int(byte.encode('hex'), 16) for byte in pixels])
     else:
         rgb = tuple(pixels)

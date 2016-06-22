@@ -67,7 +67,7 @@ class API(object):
         Get subreddit info.
         """
         self.check_token()
-        list = []
+        posts_list = []
         response = requests.get(
             'https://oauth.reddit.com/r/%s/new' % subreddit,
             headers=self.headers,
@@ -76,13 +76,13 @@ class API(object):
         posts = response.json()['data']['children']
 
         for post in posts:
-            list.append({
+            posts_list.append({
                 'link': post['data']['url'],
                 'title': post['data']['title'],
                 'upvotes': post['data']['ups']
             })
 
-        return list
+        return posts_list
 
     @check_connection
     def get_last_message(self):

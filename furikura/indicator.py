@@ -340,7 +340,8 @@ class FuriKuraIndicator(object):
             end.append(item)
             item.show()
 
-    def main_loop(self):
+    @staticmethod
+    def main_loop():
         Gtk.main()
 
     def quit(self, widget):
