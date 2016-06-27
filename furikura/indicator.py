@@ -322,7 +322,7 @@ class FuriKuraIndicator(object):
         data = self.request.get_subreddit(subreddit)
 
         # Where to append
-        end = self.builder.get_object('furikura_menu')
+        end = self.builder.get_object('subreddit_posts')
 
         # Add separator
         separator = Gtk.SeparatorMenuItem()
