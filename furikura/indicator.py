@@ -93,6 +93,7 @@ class FuriKuraIndicator(object):
         self.mail_notify(reddit_data.get('inbox_count', 0))
         self.set_karma(reddit_data.get('link_karma', 0), reddit_data.get('comment_karma', 0))
         self.local_data = reddit_data
+        self.subreddit_updates()
 
     def run_background(self, interval=1):
         """
@@ -322,12 +323,16 @@ class FuriKuraIndicator(object):
         data = self.request.get_subreddit(subreddit)
 
         # Where to append
-        end = self.builder.get_object('subreddit_posts')
+        end = self.builder.get_object('furikura_menu')
 
-        # Add separator
-        separator = Gtk.SeparatorMenuItem()
-        end.append(separator)
-        separator.show()
+        # Show title
+        name = self.builder.get_object('subreddit')
+        name.set_label('/r/%s' % subreddit)
+        name.show()
+
+        # Show separator
+        self.builder.get_object('subreddit_separator_one').show()
+        self.builder.get_object('subreddit_separator_two').show()
 
         def __open_url(widget, url):
             webbrowser.open(url, new=1, autoraise=True)
@@ -337,7 +342,7 @@ class FuriKuraIndicator(object):
             title = post['title'][:25] + (post['title'][25:] and '...')
             item = Gtk.MenuItem('%s | %s' % (post['upvotes'], title))
             item.connect('activate', __open_url, post['link'])
-            end.append(item)
+            end.add_child(self.builder, item)
             item.show()
 
     @staticmethod

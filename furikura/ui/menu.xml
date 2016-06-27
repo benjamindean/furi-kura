@@ -194,22 +194,6 @@
                 <property name="visible">True</property>
             </object>
         </child>
-
-        <child>
-            <object class="GtkMenuItem" id="subreddit">
-                <property name="visible">False</property>
-                <property name="can_focus">False</property>
-                <property name="sensitive">False</property>
-                <property name="use_action_appearance">False</property>
-                <property name="label" translatable="yes">Subreddit</property>
-            </object>
-        </child>
-        <child>
-            <object class="GtkSeparatorMenuItem" id="subreddit_posts">
-                <property name="visible">False</property>
-            </object>
-        </child>
-
         <child>
             <object class="GtkMenuItem">
                 <property name="visible">True</property>
@@ -226,6 +210,25 @@
                 <property name="use_action_appearance">False</property>
                 <property name="label" translatable="yes">Quit</property>
                 <signal name="activate" handler="quit" swapped="no"/>
+            </object>
+        </child>
+        <child>
+            <object class="GtkSeparatorMenuItem" id="subreddit_separator_one">
+                <property name="visible">False</property>
+            </object>
+        </child>
+        <child>
+            <object class="GtkMenuItem" id="subreddit">
+                <property name="visible">False</property>
+                <property name="can_focus">False</property>
+                <property name="sensitive">False</property>
+                <property name="use_action_appearance">False</property>
+                <property name="label" translatable="yes">Subreddit</property>
+            </object>
+        </child>
+        <child>
+            <object class="GtkSeparatorMenuItem" id="subreddit_separator_two">
+                <property name="visible">False</property>
             </object>
         </child>
     </object>
