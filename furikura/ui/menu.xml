@@ -178,6 +178,14 @@
                             </object>
                         </child>
                         <child>
+                            <object class="GtkMenuItem" id="add_subreddit">
+                                <property name="label">Add Subreddit</property>
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <signal name="activate" handler="subreddit_handler" swapped="no"/>
+                            </object>
+                        </child>
+                        <child>
                             <object class="GtkCheckMenuItem" id="autostart">
                                 <property name="label">Autostart</property>
                                 <property name="visible">True</property>

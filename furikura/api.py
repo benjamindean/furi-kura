@@ -62,14 +62,20 @@ class API(object):
         return response.json()
 
     @check_connection
-    def get_subreddit(self, subreddit):
+    def get_subreddit(self, subreddit, posts_type):
         """
         Get subreddit info.
         """
         self.check_token()
         posts_list = []
+        types = {
+            1: 'new',
+            2: 'hot',
+            3: 'top',
+            4: 'random'
+        }
         response = requests.get(
-            'https://oauth.reddit.com/r/%s/new' % subreddit,
+            'https://oauth.reddit.com/r/%s/%s' % (subreddit, types[posts_type]),
             headers=self.headers,
             params={'limit': 5}
         )

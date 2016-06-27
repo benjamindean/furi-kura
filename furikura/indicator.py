@@ -3,6 +3,7 @@ import os
 import webbrowser
 
 from .api import API
+from .subreddit import SubredditChooser
 from .utils import get_file, get_theme, autostart
 
 gi.require_version('Gtk', '3.0')
@@ -206,6 +207,9 @@ class FuriKuraIndicator(object):
         about.connect("response", lambda d, r: d.destroy())
         about.show()
 
+    def subreddit_handler(self, widget):
+        SubredditChooser(self.config_storage).show_window()
+
     """
     Menu handlers.
     """
@@ -219,6 +223,7 @@ class FuriKuraIndicator(object):
             'refresh_handler': self.set_refresh_interval,
             'notifications_handler': self.notifications_handler,
             'autostart_handler': self.autostart_handler,
+            'subreddit_handler': self.subreddit_handler,
             'force_refresh_handler': self.force_refresh_handler,
             'about': self.about_handler,
             'quit': self.quit
@@ -314,16 +319,21 @@ class FuriKuraIndicator(object):
     def subreddit_updates(self):
         # Get subreddit name from config
         subreddit = self.config.get('subreddit')
+        posts_type = self.config.get('posts_type', 1)
 
         # Exit if not specified
         if not subreddit:
             return
 
         # Get last posts
-        data = self.request.get_subreddit(subreddit)
+        data = self.request.get_subreddit(subreddit, posts_type)
 
         # Where to append
-        end = self.builder.get_object('furikura_menu')
+        menu = self.builder.get_object('furikura_menu')
+
+        for child in menu.get_children():
+            if child.get_name() == 'subreddit_post':
+                child.destroy()
 
         # Show title
         name = self.builder.get_object('subreddit')
@@ -339,10 +349,11 @@ class FuriKuraIndicator(object):
 
         # Iterate through last posts and append them to the menu
         for post in data:
-            title = post['title'][:25] + (post['title'][25:] and '...')
+            title = post['title'][:30] + (post['title'][30:] and '...')
             item = Gtk.MenuItem('%s | %s' % (post['upvotes'], title))
             item.connect('activate', __open_url, post['link'])
-            end.add_child(self.builder, item)
+            item.set_name('subreddit_post')
+            menu.add_child(self.builder, item)
             item.show()
 
     @staticmethod
