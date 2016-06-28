@@ -363,4 +363,5 @@ class FuriKuraIndicator(object):
     def quit(self, widget):
         if self.services['timeout']:
             GObject.source_remove(self.services['timeout'])
+        os.unlink(self.config_storage.LOCKFILE)
         Gtk.main_quit()

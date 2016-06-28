@@ -6,6 +6,7 @@ import os
 import sys
 from functools import wraps
 from gi.repository import Gdk
+from .config import Config
 
 
 def get_file(path):
@@ -43,7 +44,7 @@ def debug(func):
 
 
 def check_lock():
-    lockfile = os.path.expanduser('~/.config/furikura/furikura.lock')
+    lockfile = Config.LOCKFILE
 
     if os.path.isfile(lockfile):
         with open(lockfile, "r") as pidfile:

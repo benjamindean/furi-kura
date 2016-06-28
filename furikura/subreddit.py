@@ -2,7 +2,6 @@ from .utils import get_file
 
 
 class SubredditChooser(object):
-
     def __init__(self, config_storage, builder):
         self.config_storage = config_storage
         self.builder = builder
@@ -25,7 +24,7 @@ class SubredditChooser(object):
 
         self.chooser.show()
 
-    def __chooser_destroy(self, widget):
+    def __chooser_destroy(self, *args):
         self.chooser.destroy()
 
     def __chooser_save(self, widget, data):
@@ -36,4 +35,4 @@ class SubredditChooser(object):
             self.config_storage.set_key('subreddit', name)
             self.config_storage.set_key('posts_type', type)
 
-        self.chooser.destroy()
+        self.__chooser_destroy()

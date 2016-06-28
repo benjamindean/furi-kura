@@ -7,6 +7,7 @@ class Config(object):
     Create, update and store applications config.
     """
     CONFIG_FILE = os.path.expanduser('~/.config/furikura/furikura')
+    LOCKFILE = os.path.expanduser('~/.config/furikura/furikura.lock')
     CLIENT_ID = 'RQftQ0QKd9ZCDA'
     LOGIN_URI = 'http://localhost:65010'
     REDIRECT_URI = LOGIN_URI + '/reddit_callback'
