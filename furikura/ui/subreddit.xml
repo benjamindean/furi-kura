@@ -6,8 +6,9 @@
     <property name="can_focus">True</property>
     <property name="title" translatable="yes">Choose Subreddit</property>
     <property name="resizable">False</property>
+    <property name="gravity">north-east</property>
     <child>
-      <object class="GtkBox" id="box1">
+      <object class="GtkBox" id="box2">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
         <property name="margin_left">15</property>
@@ -26,11 +27,12 @@
               <object class="GtkLabel" id="label1">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="label">Subreddit</property>
+                <property name="halign">start</property>
+                <property name="label">Subreddit:</property>
               </object>
               <packing>
                 <property name="expand">False</property>
-                <property name="fill">True</property>
+                <property name="fill">False</property>
                 <property name="position">0</property>
               </packing>
             </child>
@@ -41,7 +43,7 @@
               </object>
               <packing>
                 <property name="expand">False</property>
-                <property name="fill">True</property>
+                <property name="fill">False</property>
                 <property name="position">1</property>
               </packing>
             </child>
@@ -57,18 +59,45 @@
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="margin_bottom">15</property>
+            <property name="spacing">15</property>
             <property name="homogeneous">True</property>
             <child>
-              <object class="GtkComboBoxText" id="posts_type">
+              <object class="GtkBox" id="box6">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="active">0</property>
-                <items>
-                  <item id="1">New</item>
-                  <item id="2">Hot</item>
-                  <item id="3">Top</item>
-                  <item id="4">Random</item>
-                </items>
+                <property name="orientation">vertical</property>
+                <child>
+                  <object class="GtkLabel" id="label3">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="halign">start</property>
+                    <property name="margin_bottom">7</property>
+                    <property name="label" translatable="yes">Type:</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkComboBoxText" id="posts_type">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="active">0</property>
+                    <items>
+                      <item id="1">New</item>
+                      <item id="2">Hot</item>
+                      <item id="3">Top</item>
+                      <item id="4">Random</item>
+                    </items>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -77,16 +106,42 @@
               </packing>
             </child>
             <child>
-              <object class="GtkComboBoxText" id="posts_limit">
+              <object class="GtkBox" id="box1">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="active">1</property>
-                <items>
-                  <item id="5">5</item>
-                  <item id="10">10</item>
-                  <item id="15">15</item>
-                  <item id="20">20</item>
-                </items>
+                <property name="orientation">vertical</property>
+                <child>
+                  <object class="GtkLabel" id="label2">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="halign">start</property>
+                    <property name="margin_bottom">7</property>
+                    <property name="label" translatable="yes">Limit:</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkComboBoxText" id="posts_limit">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="active">1</property>
+                    <items>
+                      <item id="5">5</item>
+                      <item id="10">10</item>
+                      <item id="15">15</item>
+                      <item id="20">20</item>
+                    </items>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -102,10 +157,11 @@
           </packing>
         </child>
         <child>
-          <object class="GtkBox" id="box2">
+          <object class="GtkBox" id="box5">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="margin_top">1</property>
+            <property name="spacing">15</property>
             <property name="homogeneous">True</property>
             <child>
               <object class="GtkButton" id="save">

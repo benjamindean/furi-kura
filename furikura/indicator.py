@@ -329,6 +329,10 @@ class FuriKuraIndicator(object):
         # Get last posts
         data = self.request.get_subreddit(subreddit, posts_type, posts_limit)
 
+        # Exit if not specified
+        if not data:
+            return
+
         # Where to append
         menu = self.builder.get_object('furikura_menu')
 
