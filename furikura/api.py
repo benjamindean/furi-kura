@@ -62,7 +62,7 @@ class API(object):
         return response.json()
 
     @check_connection
-    def get_subreddit(self, subreddit, posts_type):
+    def get_subreddit(self, subreddit, posts_type, posts_limit='5'):
         """
         Get subreddit info.
         """
@@ -74,10 +74,11 @@ class API(object):
             3: 'top',
             4: 'random'
         }
+
         response = requests.get(
-            'https://oauth.reddit.com/r/%s/%s' % (subreddit, types[posts_type]),
+            'https://oauth.reddit.com/r/%s/%s' % (subreddit, types[int(posts_type)]),
             headers=self.headers,
-            params={'limit': 5}
+            params={'limit': posts_limit}
         )
         posts = response.json()['data']['children']
 

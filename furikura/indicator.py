@@ -320,13 +320,14 @@ class FuriKuraIndicator(object):
         # Get subreddit name from config
         subreddit = self.config.get('subreddit')
         posts_type = self.config.get('posts_type', 1)
+        posts_limit = self.config.get('posts_limit', '5')
 
         # Exit if not specified
         if not subreddit:
             return
 
         # Get last posts
-        data = self.request.get_subreddit(subreddit, posts_type)
+        data = self.request.get_subreddit(subreddit, posts_type, posts_limit)
 
         # Where to append
         menu = self.builder.get_object('furikura_menu')
