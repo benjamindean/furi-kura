@@ -78,8 +78,8 @@ class SubredditChooser(object):
 
         # Iterate through last posts and append them to the menu
         for post in data:
-            title = post['title'][:30] + (post['title'][30:] and '...')
-            item = Gtk.MenuItem('%s | %s' % (post['upvotes'], title))
+            title = post['title'][:40] + (post['title'][40:] and '...')
+            item = Gtk.MenuItem('%s  |  %s' % (post['upvotes'], title))
             item.connect('activate', __open_url, post['link'])
             item.set_name('subreddit_post')
             menu.add_child(self.indicator.builder, item)
