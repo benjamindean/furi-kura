@@ -67,7 +67,11 @@ class FuriKuraIndicator(object):
         # Init karma view
         self.karma = '? | ?'
 
+        # Init SubredditChooser window
+        self.subreddit_chooser = SubredditChooser(self)
+
         self.init_appindicator()
+
 
     def init_appindicator(self):
         """ Set initial status and attention icon. """
@@ -207,9 +211,6 @@ class FuriKuraIndicator(object):
         about.connect("response", lambda d, r: d.destroy())
         about.show()
 
-    def subreddit_handler(self, widget):
-        SubredditChooser(self).show_window()
-
     """
     Menu handlers.
     """
@@ -223,7 +224,7 @@ class FuriKuraIndicator(object):
             'refresh_handler': self.set_refresh_interval,
             'notifications_handler': self.notifications_handler,
             'autostart_handler': self.autostart_handler,
-            'subreddit_handler': self.subreddit_handler,
+            'subreddit_handler': self.subreddit_chooser.show_window,
             'force_refresh_handler': self.force_refresh_handler,
             'about': self.about_handler,
             'quit': self.quit
@@ -317,49 +318,7 @@ class FuriKuraIndicator(object):
     """
 
     def subreddit_updates(self):
-        # Get subreddit name from config
-        subreddit = self.config.get('subreddit')
-        posts_type = self.config.get('posts_type', 1)
-        posts_limit = self.config.get('posts_limit', '5')
-
-        # Exit if not specified
-        if not subreddit:
-            return
-
-        # Get last posts
-        data = self.request.get_subreddit(subreddit, posts_type, posts_limit)
-
-        # Exit if not specified
-        if not data:
-            return
-
-        # Where to append
-        menu = self.builder.get_object('furikura_menu')
-
-        for child in menu.get_children():
-            if child.get_name() == 'subreddit_post':
-                child.destroy()
-
-        # Show title
-        name = self.builder.get_object('subreddit')
-        name.set_label('/r/%s' % subreddit)
-        name.show()
-
-        # Show separator
-        self.builder.get_object('subreddit_separator_one').show()
-        self.builder.get_object('subreddit_separator_two').show()
-
-        def __open_url(widget, url):
-            webbrowser.open(url, new=1, autoraise=True)
-
-        # Iterate through last posts and append them to the menu
-        for post in data:
-            title = post['title'][:30] + (post['title'][30:] and '...')
-            item = Gtk.MenuItem('%s | %s' % (post['upvotes'], title))
-            item.connect('activate', __open_url, post['link'])
-            item.set_name('subreddit_post')
-            menu.add_child(self.builder, item)
-            item.show()
+        self.subreddit_chooser.update_indicator()
 
     @staticmethod
     def main_loop():
