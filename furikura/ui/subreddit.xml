@@ -6,7 +6,7 @@
     <property name="can_focus">True</property>
     <property name="title" translatable="yes">Choose Subreddit</property>
     <property name="resizable">False</property>
-    <property name="gravity">north-east</property>
+    <property name="gravity">center</property>
     <child>
       <object class="GtkBox" id="box2">
         <property name="visible">True</property>

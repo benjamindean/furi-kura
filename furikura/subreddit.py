@@ -37,6 +37,7 @@ class SubredditChooser(object):
         save.connect('clicked', self.__chooser_save, (subreddit_name, posts_type, posts_limit))
 
         # Show the window
+        self.chooser.set_position(Gtk.WindowPosition(1))
         self.chooser.show()
 
     def update_indicator(self):
