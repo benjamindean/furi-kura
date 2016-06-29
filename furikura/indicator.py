@@ -208,7 +208,7 @@ class FuriKuraIndicator(object):
         about.show()
 
     def subreddit_handler(self, widget):
-        SubredditChooser(self.config_storage, self.builder).show_window()
+        SubredditChooser(self).show_window()
 
     """
     Menu handlers.
