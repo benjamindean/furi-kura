@@ -130,9 +130,9 @@ class FuriKuraIndicator(object):
         """
         if not self.local_data[karma_view] or not karma:
             return
-        if self.local_data[karma_view] > karma:
+        if self.local_data.get(karma_view) > karma:
             return '\u2193'
-        elif self.local_data[karma_view] < karma:
+        elif self.local_data.get(karma_view) < karma:
             return '\u2191'
 
     def set_karma(self, link_karma, comment_karma):
