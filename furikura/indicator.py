@@ -128,7 +128,7 @@ class FuriKuraIndicator(object):
         Return UP or DOWN arrow
         depending on new karma value.
         """
-        if not self.local_data[karma_view] or not karma:
+        if not self.local_data.get(karma_view) or not karma:
             return
         if self.local_data.get(karma_view) > karma:
             return '\u2193'
