@@ -1,6 +1,6 @@
 all: clean run
 
-VERSION=0.0.7
+VERSION=0.0.8
 
 clean:
 	find furikura -type f -name "*.pyc" | xargs rm -rf
