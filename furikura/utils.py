@@ -1,11 +1,13 @@
 import gi
 
 gi.require_version('Gdk', '3.0')
+gi.require_version('Notify', '0.7')
 
 import os
 import sys
 from functools import wraps
 from gi.repository import Gdk
+from gi.repository import Notify
 from .config import Config
 
 
@@ -49,6 +51,11 @@ def check_lock():
     if os.path.isfile(lockfile):
         with open(lockfile, "r") as pidfile:
             if os.path.exists("/proc/%s" % pidfile.readline()):
+                Notify.init('FURIKURA')
+                Notify.Notification.new(
+                    'Furi Kura is already running',
+                    'If you sure its not, delete furikura.lock file in ~/.config/furikura/'
+                ).show()
                 sys.exit(1)
             else:
                 os.remove(lockfile)
