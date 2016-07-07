@@ -24,6 +24,8 @@ class SubredditChooser(object):
         subreddit_name = self.builder.get_object('subreddit_name')
         posts_type = self.builder.get_object('posts_type')
         posts_limit = self.builder.get_object('posts_limit')
+        use_permalink = self.builder.get_object('use_permalink')
+
         save = self.builder.get_object('save')
         cancel = self.builder.get_object('cancel')
 
@@ -31,10 +33,11 @@ class SubredditChooser(object):
         subreddit_name.set_text(self.indicator.config.get('subreddit', ''))
         posts_type.set_active_id(self.indicator.config.get('posts_type', '1'))
         posts_limit.set_active_id(self.indicator.config.get('posts_limit', '5'))
+        use_permalink.set_active(self.indicator.config.get('use_permalink', False))
 
         # Connecting event handlers
         cancel.connect('clicked', self.__chooser_destroy)
-        save.connect('clicked', self.__chooser_save, (subreddit_name, posts_type, posts_limit))
+        save.connect('clicked', self.__chooser_save, (subreddit_name, posts_type, posts_limit, use_permalink))
 
         # Show the window
         self.chooser.set_position(Gtk.WindowPosition(1))
@@ -92,9 +95,12 @@ class SubredditChooser(object):
             item = Gtk.MenuItem('{upvotes}{gold} |  {title}'.format(
                 upvotes=post['upvotes'],
                 gold=' \u2605' if post['gilded'] else '',
-                title=title)
-            )
-            item.connect('activate', __open_url, post['link'])
+                title=title
+            ))
+            url = 'https://www.reddit.com' + post['permalink'] \
+                if self.indicator.config.get('use_permalink') \
+                else post['link']
+            item.connect('activate', __open_url, url)
             item.set_name('subreddit_post')
             menu.add_child(self.indicator.builder, item)
             item.show()
@@ -110,11 +116,13 @@ class SubredditChooser(object):
         subreddit_name = data[0].get_text()
         posts_type = data[1].get_active_id()
         posts_limit = data[2].get_active_id()
+        use_permalink = data[3].get_active()
 
         # Store everything is config
         self.indicator.cfg_cls.set_key('subreddit', subreddit_name)
         self.indicator.cfg_cls.set_key('posts_type', posts_type)
         self.indicator.cfg_cls.set_key('posts_limit', posts_limit)
+        self.indicator.cfg_cls.set_key('use_permalink', use_permalink)
 
         # Destroy the window after saving config
         self.indicator.subreddit_updates()
