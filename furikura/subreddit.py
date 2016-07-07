@@ -43,12 +43,13 @@ class SubredditChooser(object):
     def update_indicator(self):
         # Get subreddit name from config
         subreddit = self.indicator.config.get('subreddit')
-        posts_type = self.indicator.config.get('posts_type', 1)
-        posts_limit = self.indicator.config.get('posts_limit', '5')
 
         # Exit if not specified
         if not subreddit:
             return
+
+        posts_type = self.indicator.config.get('posts_type', 1)
+        posts_limit = self.indicator.config.get('posts_limit', '5')
 
         types = {
             1: 'new',
