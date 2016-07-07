@@ -80,7 +80,9 @@ class API(object):
             posts_list.append({
                 'link': post['data']['url'],
                 'title': post['data']['title'],
-                'upvotes': post['data']['ups']
+                'upvotes': post['data']['ups'],
+                'permalink': post['data']['permalink'],
+                'gilded': post['data']['gilded']
             })
 
         return posts_list
