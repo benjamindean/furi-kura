@@ -1,17 +1,19 @@
 # Furi Kura
 
-Linux appindicator for reddit.
+Linux application indicator for reddit.
 
 ## Features
 
 1. Notifications
 2. Karma indicators
-3. Furi
-4. Kura
+3. Show hot/top/new/random posts from any subreddit
+4. Unity launcher integration
+5. Furi
+6. Kura
 
 ## Screenshot
 
-![Furi Kura](https://cloud.githubusercontent.com/assets/5139993/15985274/a269ea60-2ff0-11e6-982b-a8a3904ef27a.png)
+![Furi Kura](https://cloud.githubusercontent.com/assets/5139993/16649712/e3e223f2-4442-11e6-9600-fe1d22391b91.png)
 
 ## Requirements
 
