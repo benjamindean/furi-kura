@@ -37,16 +37,16 @@ class FuriKuraIndicator(object):
         AppIndicator3.IndicatorCategory.COMMUNICATIONS
     )
 
-    def __init__(self, config_storage):
+    def __init__(self, cfg_cls):
 
         # Throwing config class here
-        self.config_storage = config_storage
+        self.cfg_cls = cfg_cls
 
         # Instantiating API handler
-        self.request = API(self.config_storage)
+        self.request = API(self.cfg_cls)
 
         # Getting initial config
-        self.config = self.config_storage.config
+        self.config = self.cfg_cls.config
 
         # Init GTK Builder
         self.builder = Gtk.Builder()
@@ -117,7 +117,7 @@ class FuriKuraIndicator(object):
         if interval != self.config.get('refresh_interval'):
             GObject.source_remove(self.services['timeout'])
             self.run_background(interval)
-            self.config_storage.set_key('refresh_interval', interval)
+            self.cfg_cls.set_key('refresh_interval', interval)
 
     """
     Karma handlers.
@@ -163,7 +163,7 @@ class FuriKuraIndicator(object):
         view = str(widget.get_name())
 
         if view != self.config['karma_view']:
-            self.config_storage.set_key('karma_view', view)
+            self.cfg_cls.set_key('karma_view', view)
 
         if view == 'icon':
             self.builder.get_object('karma').hide()
@@ -190,7 +190,7 @@ class FuriKuraIndicator(object):
     def notifications_handler(self, widget):
         notifications = int(widget.get_name())
         if notifications != self.config.get('notifications'):
-            self.config_storage.set_key('notifications', notifications)
+            self.cfg_cls.set_key('notifications', notifications)
 
     """
     Autostart
@@ -198,7 +198,7 @@ class FuriKuraIndicator(object):
 
     def autostart_handler(self, widget):
         active = widget.get_active()
-        self.config_storage.set_key('autostart', active)
+        self.cfg_cls.set_key('autostart', active)
         autostart('add') if active else autostart('remove')
 
     def force_refresh_handler(self, widget):
@@ -249,7 +249,7 @@ class FuriKuraIndicator(object):
     def build_login_menu(self):
 
         def open_login(context):
-            webbrowser.open(self.config_storage.LOGIN_URI, new=1, autoraise=True)
+            webbrowser.open(self.cfg_cls.LOGIN_URI, new=1, autoraise=True)
 
         login_menu = Gtk.Menu()
         item_login = Gtk.MenuItem('Login')
@@ -327,5 +327,5 @@ class FuriKuraIndicator(object):
     def quit(self, widget):
         if self.services['timeout']:
             GObject.source_remove(self.services['timeout'])
-        os.unlink(self.config_storage.LOCKFILE)
+        os.unlink(self.cfg_cls.LOCKFILE)
         Gtk.main_quit()

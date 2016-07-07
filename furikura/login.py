@@ -8,7 +8,7 @@ from flask import Flask, abort, request
 from .config import Config
 from .utils import get_file
 
-config_storage = Config()
+cfg_cls = Config()
 app = Flask(__name__)
 
 
@@ -33,9 +33,9 @@ def reddit_callback():
     code = request.args.get('code')
     tokens = get_token(code)
 
-    config_storage.set_key('access_token', tokens['access_token'])
-    config_storage.set_key('refresh_token', tokens['refresh_token'])
-    config_storage.set_key('token_expires', time.time() + 3600)
+    cfg_cls.set_key('access_token', tokens['access_token'])
+    cfg_cls.set_key('refresh_token', tokens['refresh_token'])
+    cfg_cls.set_key('token_expires', time.time() + 3600)
 
     try:
         with open(get_file('furikura/ui/login/success.html')) as html:
@@ -46,7 +46,7 @@ def reddit_callback():
     time.sleep(3)
 
     from .indicator import FuriKuraIndicator
-    ind = FuriKuraIndicator(config_storage)
+    ind = FuriKuraIndicator(cfg_cls)
     ind.build_menu()
 
     shutdown_server()
@@ -56,25 +56,25 @@ def make_authorization_url():
     from uuid import uuid4
     state = str(uuid4())
     save_created_state(state)
-    params = {'client_id': config_storage.CLIENT_ID,
+    params = {'client_id': cfg_cls.CLIENT_ID,
               'response_type': 'code',
               'state': state,
-              'redirect_uri': config_storage.REDIRECT_URI,
+              'redirect_uri': cfg_cls.REDIRECT_URI,
               'duration': 'permanent',
               'scope': 'identity,privatemessages,read'}
     url = 'https://www.reddit.com/api/v1/authorize?' + urlencode(params)
     return url
 
 def get_token(code):
-    client_auth = requests.auth.HTTPBasicAuth(config_storage.CLIENT_ID, "")
+    client_auth = requests.auth.HTTPBasicAuth(cfg_cls.CLIENT_ID, "")
     post_data = {'grant_type': 'authorization_code',
                  'code': code,
-                 'redirect_uri': config_storage.REDIRECT_URI}
+                 'redirect_uri': cfg_cls.REDIRECT_URI}
     response = requests.post(
         'https://www.reddit.com/api/v1/access_token',
         auth=client_auth,
         data=post_data,
-        headers={'User-Agent': config_storage.USER_AGENT}
+        headers={'User-Agent': cfg_cls.USER_AGENT}
     )
     return response.json()
 

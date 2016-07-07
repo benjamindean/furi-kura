@@ -8,10 +8,10 @@ from .indicator import FuriKuraIndicator
 class FuriKura(object):
     def __init__(self):
         check_lock()
-        self.config_storage = Config()
-        self.ind_inst = FuriKuraIndicator(self.config_storage)
+        self.cfg_cls = Config()
+        self.ind_inst = FuriKuraIndicator(self.cfg_cls)
 
-        if not self.config_storage.get_value('access_token'):
+        if not self.cfg_cls.get_value('access_token'):
             self.handle_login()
         else:
             self.ind_inst.build_menu()

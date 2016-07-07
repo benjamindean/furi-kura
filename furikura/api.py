@@ -5,19 +5,19 @@ from .utils import check_connection
 
 
 class API(object):
-    def __init__(self, config_storage):
-        self.config_storage = config_storage
-        self.config = self.config_storage.config
+    def __init__(self, cfg_cls):
+        self.cfg_cls = cfg_cls
+        self.config = self.cfg_cls.config
         self.refresh_token = self.config.get('refresh_token')
         self.token_expires = self.config.get("token_expires")
-        self.headers = self.config_storage.get_headers(self.config.get('access_token'))
+        self.headers = self.cfg_cls.get_headers(self.config.get('access_token'))
 
     @check_connection
     def get_new_token(self):
         """
         Get new token using refresh token.
         """
-        client_auth = requests.auth.HTTPBasicAuth(self.config_storage.CLIENT_ID, "")
+        client_auth = requests.auth.HTTPBasicAuth(self.cfg_cls.CLIENT_ID, "")
         response = requests.post(
             'https://www.reddit.com/api/v1/access_token',
             auth=client_auth,
@@ -26,14 +26,14 @@ class API(object):
                 'refresh_token': self.refresh_token
             },
             headers={
-                "User-Agent": self.config_storage.USER_AGENT
+                "User-Agent": self.cfg_cls.USER_AGENT
             }
         )
 
         access_token = response.json()['access_token']
         self.token_expires = time.time() + 3600
-        self.config_storage.set_key('token_expires', self.token_expires)
-        self.config_storage.set_key('access_token', access_token)
+        self.cfg_cls.set_key('token_expires', self.token_expires)
+        self.cfg_cls.set_key('access_token', access_token)
         self.set_token(access_token)
         print("Token refreshed with %s, until %s" % (response.json()['access_token'], time.time() + 3600))
 
@@ -49,8 +49,8 @@ class API(object):
         """
         Set token config value and update headers.
         """
-        self.config_storage.set_key('access_token', token)
-        self.headers = self.config_storage.get_headers(token)
+        self.cfg_cls.set_key('access_token', token)
+        self.headers = self.cfg_cls.get_headers(token)
 
     @check_connection
     def get_user_info(self):

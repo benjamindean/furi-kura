@@ -108,9 +108,9 @@ class SubredditChooser(object):
         posts_limit = data[2].get_active_id()
 
         # Store everything is config
-        self.indicator.config_storage.set_key('subreddit', subreddit_name)
-        self.indicator.config_storage.set_key('posts_type', posts_type)
-        self.indicator.config_storage.set_key('posts_limit', posts_limit)
+        self.indicator.cfg_cls.set_key('subreddit', subreddit_name)
+        self.indicator.cfg_cls.set_key('posts_type', posts_type)
+        self.indicator.cfg_cls.set_key('posts_limit', posts_limit)
 
         # Destroy the window after saving config
         self.indicator.subreddit_updates()
