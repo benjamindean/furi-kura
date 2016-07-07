@@ -50,8 +50,17 @@ class SubredditChooser(object):
         if not subreddit:
             return
 
+        types = {
+            1: 'new',
+            2: 'hot',
+            3: 'top',
+            4: 'random'
+        }
+
+        type_string = types[int(posts_type)]
+
         # Get last posts
-        data = self.indicator.request.get_subreddit(subreddit, posts_type, posts_limit)
+        data = self.indicator.request.get_subreddit(subreddit, type_string, posts_limit)
 
         # Exit if not specified
         if not data:
@@ -66,7 +75,7 @@ class SubredditChooser(object):
 
         # Show title
         name = self.indicator.builder.get_object('subreddit')
-        name.set_label('/r/%s' % subreddit)
+        name.set_label('/r/%s/%s' % (subreddit, type_string))
         name.show()
 
         # Show separator

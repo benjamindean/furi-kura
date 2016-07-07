@@ -68,15 +68,9 @@ class API(object):
         """
         self.check_token()
         posts_list = []
-        types = {
-            1: 'new',
-            2: 'hot',
-            3: 'top',
-            4: 'random'
-        }
 
         response = requests.get(
-            'https://oauth.reddit.com/r/%s/%s' % (subreddit, types[int(posts_type)]),
+            'https://oauth.reddit.com/r/%s/%s' % (subreddit, posts_type),
             headers=self.headers,
             params={'limit': posts_limit}
         )
