@@ -113,16 +113,16 @@ class SubredditChooser(object):
 
     def __chooser_save(self, widget, data):
         # Getting text and id values
-        subreddit_name = data[0].get_text()
-        posts_type = data[1].get_active_id()
-        posts_limit = data[2].get_active_id()
-        use_permalink = data[3].get_active()
+        cfg_options = {
+            'subreddit': data[0].get_text(),
+            'posts_type': data[1].get_active_id(),
+            'posts_limit': data[2].get_active_id(),
+            'use_permalink': data[3].get_active()
+        }
 
         # Store everything is config
-        self.indicator.cfg_cls.set_key('subreddit', subreddit_name)
-        self.indicator.cfg_cls.set_key('posts_type', posts_type)
-        self.indicator.cfg_cls.set_key('posts_limit', posts_limit)
-        self.indicator.cfg_cls.set_key('use_permalink', use_permalink)
+        for key, value in cfg_options.items():
+            self.indicator.cfg_cls.set_key(key, value)
 
         # Destroy the window after saving config
         self.indicator.subreddit_updates()
