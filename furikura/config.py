@@ -11,7 +11,7 @@ class Config(object):
     CLIENT_ID = 'RQftQ0QKd9ZCDA'
     LOGIN_URI = 'http://localhost:65010'
     REDIRECT_URI = LOGIN_URI + '/reddit_callback'
-    USER_AGENT = 'linux:furi-kura:v0.0.8 (by /u/benjaminabel)'
+    USER_AGENT = 'linux:furi-kura:v0.0.9 (by /u/benjaminabel)'
 
     def __init__(self):
         self.config = self.read_config()

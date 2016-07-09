@@ -29,8 +29,8 @@ You can skip this list if you are installing it from a .deb package.
 ### From a .deb package
 
 ```
-wget https://github.com/benjamindean/furi-kura/releases/download/v0.0.8/furi-kura_0.0.8-1_all.deb
-sudo dpkg -i furi-kura_0.0.8-1_all.deb
+wget https://github.com/benjamindean/furi-kura/releases/download/v0.0.9/furi-kura_0.0.9-1_all.deb
+sudo dpkg -i furi-kura_0.0.9-1_all.deb
 ```
 
 In case you are getting a dependency errors:
@@ -42,8 +42,8 @@ sudo apt-get install -f
 ### From source
 
 ```
-wget https://github.com/benjamindean/furi-kura/archive/v0.0.8.zip
-unzip v0.0.8.zip && cd furi-kura-0.0.8
+wget https://github.com/benjamindean/furi-kura/archive/v0.0.9.zip
+unzip v0.0.9.zip && cd furi-kura-0.0.9
 sudo make install
 ```
 
