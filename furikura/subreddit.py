@@ -1,4 +1,5 @@
 import gi
+import html
 import webbrowser
 from .utils import get_file
 
@@ -95,7 +96,7 @@ class SubredditChooser(object):
             item = Gtk.MenuItem('{upvotes}{gold} |  {title}'.format(
                 upvotes=post['upvotes'],
                 gold=' \u2605' if post['gilded'] else '',
-                title=title
+                title=html.unescape(title)
             ))
             url = 'https://www.reddit.com' + post['permalink'] \
                 if self.indicator.config.get('use_permalink') \
