@@ -16,6 +16,7 @@ class SubredditChooser(object):
         # Passing indicator class and create Gtk.Builder()
         self.indicator = indicator
         self.builder = Gtk.Builder()
+        self.chooser = None
 
     def show_window(self, *args):
         # Getting Entry, Button and ComboBoxText objects
@@ -87,9 +88,6 @@ class SubredditChooser(object):
         self.indicator.builder.get_object('subreddit_separator_one').show()
         self.indicator.builder.get_object('subreddit_separator_two').show()
 
-        def __open_url(widget, url):
-            webbrowser.open(url, new=1, autoraise=True)
-
         # Iterate through last posts and append them to the menu
         for post in data:
             title = post['title'][:40] + (post['title'][40:] and '...')
@@ -101,10 +99,13 @@ class SubredditChooser(object):
             url = 'https://www.reddit.com' + post['permalink'] \
                 if self.indicator.config.get('use_permalink') \
                 else post['link']
-            item.connect('activate', __open_url, url)
+            item.connect('activate', self.__open_url, url)
             item.set_name('subreddit_post')
             menu.add_child(self.indicator.builder, item)
             item.show()
+
+    def __open_url(self, widget, link):
+        webbrowser.open(link, new=1, autoraise=True)
 
     def __chooser_destroy(self, *args):
         """

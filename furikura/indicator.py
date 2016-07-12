@@ -72,7 +72,6 @@ class FuriKuraIndicator(object):
 
         self.init_appindicator()
 
-
     def init_appindicator(self):
         """ Set initial status and attention icon. """
         self.INDICATOR.set_status(AppIndicator3.IndicatorStatus.ACTIVE)

@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.18.3 -->
+<!--suppress XmlUnboundNsPrefix, XmlUnboundNsPrefix -->
 <interface>
   <requires lib="gtk+" version="3.12"/>
   <object class="GtkWindow" id="choose_subreddit">
     <property name="can_focus">True</property>
+    <property name="has_focus">True</property>
+    <property name="is_focus">True</property>
     <property name="title" translatable="yes">Choose Subreddit</property>
     <property name="resizable">False</property>
     <property name="gravity">center</property>
