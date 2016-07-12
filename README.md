@@ -19,7 +19,7 @@ Linux application indicator for reddit.
 
 You can skip this list if you are installing it from a .deb package. 
 
-1. Python 3 | `python3`
+1. Python 3 | `python3` (^3.4)
 2. Flask | `python3-flask`
 3. Requests | `python3-requests`
 4. PyGObject | `python3-gi`
