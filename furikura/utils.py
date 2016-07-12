@@ -5,6 +5,7 @@ gi.require_version('Notify', '0.7')
 
 import os
 import sys
+import requests
 from functools import wraps
 from gi.repository import Gdk
 from gi.repository import Notify
@@ -24,7 +25,7 @@ def check_connection(func):
             return func(*args, **kwargs)
         except (KeyboardInterrupt, SystemExit):
             raise
-        except:
+        except requests.exceptions.ConnectionError:
             return False
 
     return wrapper
