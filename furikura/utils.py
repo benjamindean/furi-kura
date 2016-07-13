@@ -27,6 +27,8 @@ def check_connection(func):
             raise
         except requests.exceptions.ConnectionError:
             return False
+        except ValueError:
+            return False
 
     return wrapper
 
