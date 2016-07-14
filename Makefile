@@ -12,6 +12,7 @@ run:
 	bin/furikura
 
 deb:
+	cp README.md README
 	python3 setup.py --command-packages=stdeb.command sdist_dsc
 	cd deb_dist/furi-kura-$(VERSION)/ && dpkg-buildpackage -rfakeroot -uc -us
 
