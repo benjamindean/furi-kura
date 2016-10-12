@@ -1,4 +1,0 @@
-gi
-Flask
-pygobject
-requests

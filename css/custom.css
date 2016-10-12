@@ -1,0 +1,32 @@
+.section {
+    margin-bottom: 60px;
+}
+
+.heading {
+    margin-bottom: 40px;
+}
+
+.hero {
+    margin: 10% 0;
+}
+
+.hero h1 {
+    margin: 0;
+}
+
+.text-center {
+    text-align: center;
+}
+
+pre > code {
+    white-space: pre-wrap;
+    white-space: -moz-pre-wrap;
+    white-space: -pre-wrap;
+    white-space: -o-pre-wrap;
+    word-wrap: break-word;
+}
+
+footer a {
+	text-decoration: none;
+	color: inherit;
+}
