@@ -18,8 +18,9 @@ install:
  - virtualenv --python=$PYTHON --system-site-packages _venv
  - source _venv/bin/activate
  - pip install -r requirements.txt
+ - pip3 install codecov
 
-script: python3 -m "nose"
+script: python3 -m "nose" --with-coverage
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
