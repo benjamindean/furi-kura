@@ -75,15 +75,12 @@ def autostart(action):
     """
     autostart_file = os.path.expanduser('~/.config/autostart/furikura.desktop')
     desktop_file = '/usr/share/applications/furikura.desktop'
-    is_enabled = os.path.isfile(autostart_file)
-
-    if not os.path.isfile(desktop_file):
-        return
+    is_enabled = os.path.islink(autostart_file)
 
     if action is 'add' and not is_enabled:
         os.symlink(desktop_file, autostart_file)
     elif action is 'remove' and is_enabled:
-        os.remove(autostart_file)
+        os.unlink(autostart_file)
 
 
 """
