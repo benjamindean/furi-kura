@@ -14,7 +14,7 @@ matrix:
 
 install:
  - sudo apt-get update -q
- - sudo apt-get install --no-install-recommends -y gir1.2-notify-0.7 gir1.2-gtk-3.0 $(echo $PACKAGES)
+ - sudo apt-get install --no-install-recommends -y gir1.2-notify-0.7 gir1.2-gtk-3.0 gir1.2-appindicator3 $(echo $PACKAGES)
  - virtualenv --python=$PYTHON --system-site-packages _venv
  - source _venv/bin/activate
  - pip install -r requirements.txt
