@@ -17,6 +17,8 @@ class TestUtils(TestCase):
         self.addTypeEqualityFunc(type, utils.check_connection(test_request))
 
     def test_autostart(self):
+        os.makedirs(os.path.expanduser('~/.config/autostart/'), exist_ok=True)
+
         utils.autostart('add')
         self.assertTrue(os.path.islink(os.path.expanduser('~/.config/autostart/furikura.desktop')))
 
