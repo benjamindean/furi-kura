@@ -102,6 +102,10 @@ def __luminance(r, g, b, base=256):
 def __pixel_at(x, y):
     """Returns (r, g, b) color code for a pixel with given coordinates (each value is in 0..256 limits)"""
     root_window = Gdk.get_default_root_window()
+
+    if not root_window:
+        return tuple()
+
     buf = Gdk.pixbuf_get_from_window(root_window, x, y, 1, 1)
     pixels = buf.get_pixels()
     if isinstance(pixels, str):
