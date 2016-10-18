@@ -4,7 +4,9 @@ from unittest import TestCase
 import requests
 
 from furikura import utils
+from furikura.config import Config
 
+config_cls = Config()
 
 def test_request():
     requests.get('https://example.com')
@@ -24,4 +26,14 @@ class TestUtils(TestCase):
 
         utils.autostart('remove')
         self.assertFalse(os.path.islink(os.path.expanduser('~/.config/autostart/furikura.desktop')))
+
+    def test_check_lock(self):
+        os.makedirs(os.path.expanduser('~/.config/furikura/'), exist_ok=True)
+
+        utils.check_lock()
+        self.assertTrue(os.path.isfile(config_cls.LOCKFILE))
+
+    def test_debug(self):
+        self.addTypeEqualityFunc(type, utils.debug(test_request))
+
 
