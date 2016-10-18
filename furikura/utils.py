@@ -104,7 +104,7 @@ def __pixel_at(x, y):
     root_window = Gdk.get_default_root_window()
 
     if not root_window:
-        return tuple()
+        return tuple([0, 0, 0])
 
     buf = Gdk.pixbuf_get_from_window(root_window, x, y, 1, 1)
     pixels = buf.get_pixels()
