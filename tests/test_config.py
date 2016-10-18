@@ -1,9 +1,9 @@
 import os
 from unittest import TestCase
 
-from furikura import config
+from furikura.config import Config
 
-config_cls = config.Config()
+config_cls = Config()
 
 
 class TestConfig(TestCase):

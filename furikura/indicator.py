@@ -91,8 +91,9 @@ class FuriKuraIndicator(object):
         Set all MenuItems to the new values
         and update local copy.
         """
-        if not reddit_data:
+        if reddit_data.get('error'):
             return
+
         self.set_inbox(reddit_data.get('inbox_count', 0))
         self.mail_notify(reddit_data.get('inbox_count', 0))
         self.set_karma(reddit_data.get('link_karma', 0), reddit_data.get('comment_karma', 0))

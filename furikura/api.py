@@ -8,8 +8,8 @@ class API(object):
     def __init__(self, cfg_cls):
         self.cfg_cls = cfg_cls
         self.config = self.cfg_cls.config
-        self.refresh_token = self.config.get('refresh_token')
-        self.token_expires = self.config.get("token_expires")
+        self.refresh_token = self.config.get('refresh_token') or False
+        self.token_expires = self.config.get("token_expires") or False
         self.headers = self.cfg_cls.get_headers(self.config.get('access_token'))
 
     @check_connection
@@ -29,6 +29,9 @@ class API(object):
                 "User-Agent": self.cfg_cls.USER_AGENT
             }
         )
+
+        if response.json().get('error'):
+            return False
 
         access_token = response.json()['access_token']
         self.token_expires = time.time() + 3600
