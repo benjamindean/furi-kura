@@ -19,9 +19,10 @@ class TestFuriKuraIndicator(TestCase):
     def test_update_appindicator(self):
         self.assertIsNone(indicator_cls.update_appindicator(api_cls.get_user_info()))
 
-    # def test_run_background(self):
-    #     self.fail()
-    #
+    def test_run_background(self):
+        indicator_cls.run_background()
+        self.assertTrue(indicator_cls.services['timeout'])
+
     # def test_set_refresh_interval(self):
     #     self.fail()
     #
@@ -71,7 +72,7 @@ class TestFuriKuraIndicator(TestCase):
     #     self.fail()
     #
     # def test_main_loop(self):
-    #     self.fail()
-    #
+    #     self.assertTrue(indicator_cls.main_loop())
+
     # def test_quit(self):
     #     self.fail()

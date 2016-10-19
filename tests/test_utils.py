@@ -9,14 +9,18 @@ from furikura.config import Config
 config_cls = Config()
 
 def test_request():
-    requests.get('https://example.com')
+    requests.get('http://example.com')
 
 class TestUtils(TestCase):
     def test_get_file(self):
         self.assertEqual(utils.get_file("testfile"), "/usr/share/testfile")
 
+    @utils.check_connection
     def test_check_connection(self):
-        self.addTypeEqualityFunc(type, utils.check_connection(test_request))
+        valid = requests.get('http://example.com')
+        invalid = requests.get('fake_domain')
+        self.assertTrue(valid.ok)
+        self.assertFalse(invalid.ok)
 
     def test_autostart(self):
         os.makedirs(os.path.expanduser('~/.config/autostart/'), exist_ok=True)
