@@ -21,7 +21,7 @@ install:
  - pip3 install codecov
  - sudo python3 setup.py install
 
-script: python3 -m "nose" --with-coverage --cover-package=furikura
+script: make test
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)

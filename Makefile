@@ -11,6 +11,9 @@ clean:
 run:
 	bin/furikura
 
+test:
+	python3 -m "nose" --with-coverage --cover-package=furikura
+
 deb:
 	cp README.md README
 	python3 setup.py --command-packages=stdeb.command sdist_dsc
